@@ -17,6 +17,10 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
 const fmtDate = (d) =>
   d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
 
+// Normally a real file path. The single-file bundle swaps in data URIs so the
+// whole app can live in one document with no separate requests.
+const diagramUrl = (p) => window.__DIAGRAMS__?.[p] ?? `diagrams/${p}`;
+
 // ---------------------------------------------------------------- beeps
 
 let audio = null;
@@ -170,7 +174,7 @@ function screenExercise(overrideEx = null) {
   const setsDone = session.setsDone[ex.id] ?? 0;
 
   const panels = ex.panels.map((p) =>
-    `<div class="panel"><img src="diagrams/${p}" alt="" loading="eager"></div>`).join('');
+    `<div class="panel"><img src="${diagramUrl(p)}" alt="" loading="eager"></div>`).join('');
   const pdots = ex.panels.length > 1
     ? `<div class="pdots">${ex.panels.map((_, i) =>
         `<i class="pdot${i === 0 ? ' on' : ''}"></i>`).join('')}</div>` : '';
@@ -377,7 +381,9 @@ function screenDone() {
 
 screenToday();
 
-if ('serviceWorker' in navigator) {
+// The single-file bundle has no sw.js to register, and its assets are already
+// inline, so there is nothing to precache.
+if (!window.__BUNDLED__ && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => { /* offline is a bonus, not a requirement */ });
   });

@@ -24,8 +24,9 @@ No accounts, no sync, no server, no notifications.
 
 ```
 npm run serve      # http://localhost:8080
-npm test           # 29 unit tests, stamps the cache version first
-npm run build      # regenerate diagrams, icons and the cache version
+npm test           # 36 unit tests, stamps the cache version first
+npm run build      # regenerate diagrams, icons, cache version and the bundle
+npm run bundle     # just the single-file build
 ```
 
 The app is plain HTML, CSS and ES modules. There is no build step for the app itself. The `build/` scripts only generate assets.
@@ -62,6 +63,25 @@ Regenerate with `npm run diagrams` after editing anything in `build/*.svg`. The 
 **Run `npm run stamp` before every deploy.** Without it the cache name never changes, the service worker keeps serving the old files, and an update never reaches the phone. `npm test` runs it automatically so it is hard to forget.
 
 `test/precache.test.js` fails if a shipped file is missing from the precache list, which is the other way offline silently breaks.
+
+## Deploying
+
+Push to `main`. `.github/workflows/pages.yml` runs the suite, refuses to deploy if the cache version is stale, and publishes to Pages.
+
+First time only, after `gh auth login`:
+
+```
+gh repo create climbers-elbow-app --public --source=. --push
+gh api -X POST repos/:owner/climbers-elbow-app/pages -f build_type=workflow
+```
+
+## The single-file bundle
+
+`npm run bundle` produces `dist/elbow-standalone.html`, the entire app in one file with the CSS inlined, the modules concatenated and all 18 diagrams embedded as data URIs. About 91 KB.
+
+It is a fallback, not the main path. It has no service worker, so offline depends on the browser's own cache rather than being guaranteed. Useful for dropping on any host without a build step, or as a durable copy.
+
+It still needs to be served over http. A single file does not get around Safari's `file://` restrictions.
 
 ## Installing on the phone
 

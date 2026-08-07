@@ -8,7 +8,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 /** Everything the browser could ask for, relative to the app root. */
 function shippedAssets() {
-  const skip = new Set(['build', 'test', 'node_modules', '.git', '.github']);
+  // dist/ is the generated single-file bundle, not part of the served app
+  const skip = new Set(['build', 'test', 'dist', 'node_modules', '.git', '.github']);
   const skipFiles = new Set(['package.json', 'package-lock.json', 'sw.js', 'README.md', '.gitignore', '.nojekyll']);
   const out = [];
   (function walk(dir) {
