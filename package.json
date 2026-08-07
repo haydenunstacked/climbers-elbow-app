@@ -1,0 +1,15 @@
+{
+  "name": "climbers-elbow-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Phone app that tells Hayden which elbow rehab session to run today",
+  "scripts": {
+    "build": "node build/split-panels.mjs && node build/make-icons.mjs && node build/stamp-version.mjs",
+    "stamp": "node build/stamp-version.mjs",
+    "test": "node build/stamp-version.mjs && node --test test/*.test.js",
+    "diagrams": "node build/split-panels.mjs",
+    "icons": "node build/make-icons.mjs",
+    "serve": "python3 -m http.server 8080"
+  }
+}

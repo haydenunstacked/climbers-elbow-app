@@ -1,0 +1,232 @@
+/* Palette carried over from the vault note's diagrams so the app reads as a
+   continuation of it. Diagrams keep their cream paper background in both
+   themes, which is deliberate: they read as cards laid on the surface. */
+
+:root {
+  --bg: #FAF7F2;
+  --card: #FFFFFF;
+  --ink: #1F2421;
+  --muted: #6B6257;
+  --accent: #C2543D;
+  --sage: #5E7266;
+  --tan: #DED3BF;
+  --line: #E2D9CB;
+  --shade: #F1EBE1;
+  --onInk: #FAF7F2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16191A;
+    --card: #1E2223;
+    --ink: #EDE7DD;
+    --muted: #9A9186;
+    --accent: #E07B62;
+    --sage: #8AA396;
+    --tan: #4A443C;
+    --line: #2E3334;
+    --shade: #24292A;
+    --onInk: #16191A;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+/* Taps on a button's inner text must not start a text selection. */
+button, .opt, .ex, .cta, .flare, .altlink, .tbtn {
+  -webkit-user-select: none; user-select: none; touch-action: manipulation;
+}
+
+html, body { height: 100%; overscroll-behavior: none; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  /* keeps content clear of the notch and the home indicator */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+#app { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.screen { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 20px; }
+.foot { flex: none; padding: 12px 20px calc(20px + env(safe-area-inset-bottom)); }
+
+/* ---------- header ---------- */
+
+.top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 14px 2px 12px; border-bottom: 1px solid var(--line);
+}
+.date { font-size: 20px; font-weight: 700; letter-spacing: -.2px; }
+.wk { font-size: 13px; color: var(--muted); }
+
+.bar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 2px 12px; border-bottom: 1px solid var(--line);
+}
+.ttl { font-size: 17px; font-weight: 700; flex: 1; min-width: 0;
+       overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mins { font-size: 13px; color: var(--muted); font-weight: 700; flex: none; }
+
+.back {
+  font-size: 26px; line-height: 1; color: var(--muted);
+  background: none; border: none; cursor: pointer;
+  padding: 4px 10px 6px 2px; margin: -4px 0 -6px -2px; /* bigger touch target */
+  font-family: inherit;
+}
+
+/* ---------- today ---------- */
+
+.ask { font-size: 28px; font-weight: 700; letter-spacing: -.5px; margin: 30px 2px 20px; line-height: 1.15; }
+
+.opt {
+  display: block; width: 100%; text-align: left; background: var(--card);
+  border: 2px solid var(--ink); border-radius: 18px; padding: 18px;
+  margin-bottom: 13px; font: inherit; color: inherit; cursor: pointer;
+}
+.opt:active { transform: scale(.985); }
+.opt .k { display: block; font-size: 22px; font-weight: 800; letter-spacing: .4px; }
+.opt .d { display: block; font-size: 14px; color: var(--muted); margin-top: 3px; }
+.opt .m { float: right; font-size: 13px; color: var(--muted); font-weight: 700; margin-top: 5px; }
+
+.cnt {
+  display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--muted);
+  padding: 16px 4px; border-top: 1px solid var(--line);
+}
+.cnt .n { margin-left: auto; font-weight: 700; color: var(--ink); }
+.dots { display: flex; gap: 6px; }
+.dot { width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--sage); }
+.dot.on { background: var(--sage); }
+
+.status { font-size: 13.5px; padding: 0 4px 4px; }
+.status.behind { color: var(--accent); font-weight: 650; }
+.status.good { color: var(--sage); font-weight: 650; }
+.status.ok { color: var(--muted); }
+
+.flare {
+  display: block; width: 100%; text-align: center; background: none; border: none;
+  font: inherit; font-size: 14px; color: var(--accent); font-weight: 700;
+  padding: 14px 0 2px; cursor: pointer;
+}
+
+/* ---------- session list ---------- */
+
+.kind {
+  font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--accent); margin: 16px 2px 4px;
+}
+.sub { font-size: 14px; color: var(--muted); margin: 0 2px 10px; }
+
+.ex { display: flex; gap: 13px; padding: 14px 2px; border-bottom: 1px solid var(--line); width: 100%;
+      background: none; border-left: 0; border-right: 0; border-top: 0; font: inherit; color: inherit;
+      text-align: left; cursor: pointer; align-items: flex-start; }
+.ex:last-of-type { border-bottom: none; }
+.num {
+  width: 26px; height: 26px; flex: none; border-radius: 50%; background: var(--shade);
+  border: 1.5px solid var(--tan); display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--muted);
+}
+.ex.done .num { background: var(--sage); border-color: var(--sage); color: var(--onInk); }
+.exn { display: block; font-size: 16px; font-weight: 650; }
+.exd { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sep {
+  display: flex; align-items: center; gap: 10px; margin: 18px 2px 4px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--sage);
+}
+.sep::before, .sep::after { content: ''; height: 1px; background: var(--line); flex: 1; }
+
+/* ---------- buttons ---------- */
+
+.cta {
+  display: block; width: 100%; background: var(--ink); color: var(--onInk); border: none;
+  border-radius: 18px; padding: 18px; font: inherit; font-size: 17px; font-weight: 750; cursor: pointer;
+}
+.cta:active { transform: scale(.985); }
+.cta.alt { background: none; color: var(--ink); border: 2px solid var(--ink); padding: 16px; }
+.cta[disabled] { opacity: .4; }
+.row { display: flex; gap: 11px; }
+.row .cta { flex: 1; }
+
+/* ---------- exercise ---------- */
+
+.swipe {
+  display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; margin: 14px 0 0; padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.swipe::-webkit-scrollbar { display: none; }
+.panel {
+  flex: 0 0 100%; scroll-snap-align: center; border: 1.5px solid var(--line);
+  border-radius: 16px; overflow: hidden; background: #FAF7F2;
+  display: flex; align-items: center; justify-content: center;
+}
+/* Capped so the tall 4-panel diagrams cannot push the dose and cue off screen.
+   The letterbox matches the diagram's own background, so it reads as one card. */
+.panel img { display: block; width: 100%; height: auto; max-height: 44vh; object-fit: contain; }
+
+.pdots { display: flex; gap: 7px; justify-content: center; padding: 10px 0 0; }
+.pdot { width: 7px; height: 7px; border-radius: 50%; background: var(--tan); transition: background .15s; }
+.pdot.on { background: var(--accent); }
+
+.dose { font-size: 16px; font-weight: 650; margin: 16px 2px 3px; }
+.cue { font-size: 14px; color: var(--accent); font-weight: 650; margin: 0 2px; }
+.exnote { font-size: 13px; color: var(--muted); margin: 8px 2px 0; }
+
+.altlink {
+  background: none; border: none; font: inherit; font-size: 13px; font-weight: 650;
+  color: var(--muted); text-decoration: underline; cursor: pointer; padding: 10px 2px 0;
+}
+
+.setrow { display: flex; align-items: center; justify-content: space-between; margin: 0 2px 10px; }
+.setlab { font-size: 13px; color: var(--muted); font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+.sdots { display: flex; gap: 8px; }
+.sd { width: 15px; height: 15px; border-radius: 50%; border: 2.5px solid var(--ink); }
+.sd.on { background: var(--ink); }
+
+.timer { border: 2px solid var(--accent); border-radius: 16px; padding: 12px 14px; margin-bottom: 11px; }
+.timer.idle { border-color: var(--line); }
+.tt { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 750; color: var(--accent); }
+.timer.idle .tt { color: var(--muted); }
+.track { height: 12px; background: var(--shade); border-radius: 6px; margin-top: 10px; overflow: hidden; }
+.fill { height: 100%; width: 0%; background: var(--accent); border-radius: 6px; }
+.timer.idle .fill { background: var(--tan); }
+.tbtn {
+  width: 100%; margin-top: 12px; background: none; border: 2px solid var(--accent); color: var(--accent);
+  border-radius: 12px; padding: 11px; font: inherit; font-size: 14.5px; font-weight: 750; cursor: pointer;
+}
+
+.resting { text-align: center; font-size: 14px; color: var(--sage); font-weight: 650; padding: 12px 0 0; }
+
+/* ---------- done ---------- */
+
+.done { text-align: center; padding: 46px 0 0; }
+.tick { width: 64px; height: 64px; margin: 0 auto 20px; display: block; }
+.dh { font-size: 28px; font-weight: 750; letter-spacing: -.4px; }
+.ds { font-size: 14.5px; color: var(--muted); margin-top: 6px; }
+
+.note {
+  border: 1.5px solid var(--line); border-radius: 16px; background: var(--card);
+  padding: 16px; margin-top: 24px;
+}
+.nh {
+  font-size: 11.5px; font-weight: 750; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 7px;
+}
+.nb { font-size: 14px; line-height: 1.55; color: var(--muted); }
+.nb b { color: var(--ink); font-weight: 650; }
+
+.warn {
+  font-size: 12.5px; color: var(--accent); text-align: center;
+  padding: 10px 20px 0; font-weight: 650;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .opt:active, .cta:active { transform: none; }
+}

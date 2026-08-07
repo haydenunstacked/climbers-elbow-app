@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" width="720" height="400" role="img" aria-label="Finger extensor band, two steps">
+  <style>
+    .bg{fill:#FAF7F2}
+    .limb{fill:#EFE9DF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
+    .imp{fill:#DED3BF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
+    .band{stroke:#5E7266;fill:none;stroke-width:4;stroke-linecap:round}
+    .det{stroke:#1F2421;fill:none;stroke-width:2;stroke-linecap:round;opacity:.35}
+    .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
+    .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
+    .h{font-size:22px;font-weight:700}
+    .sub{font-size:13.5px;fill:#6B6257}
+    .cap{font-size:13.5px}
+    .lab{font-size:11.5px;fill:#6B6257}
+    .accT{font-size:12.5px;font-weight:700;fill:#C2543D}
+    .dose{font-size:13px;fill:#4A443C}
+    .div{stroke:#E2D9CB;stroke-width:1.5}
+  </style>
+  <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
+  </marker>
+
+  <rect class="bg" x="0" y="0" width="720" height="400"/>
+  <text class="t h" x="22" y="32">Finger extensor band</text>
+  <text class="t sub" x="22" y="54">Antagonist work. This is the balance for everything the gripping does.</text>
+  <line class="div" x1="362" y1="72" x2="362" y2="356"/>
+
+  <!-- PANEL 1 -->
+  <g>
+    <rect class="limb" x="145" y="140" width="17" height="62" rx="8"/>
+    <rect class="limb" x="166" y="140" width="17" height="62" rx="8"/>
+    <rect class="limb" x="187" y="140" width="17" height="62" rx="8"/>
+    <rect class="limb" x="208" y="140" width="17" height="62" rx="8"/>
+    <rect class="limb" x="104" y="200" width="46" height="22" rx="11" transform="rotate(-25 148 211)"/>
+    <rect class="limb" x="140" y="196" width="90" height="82" rx="24"/>
+    <ellipse class="band" cx="185" cy="150" rx="48" ry="13"/>
+    <text class="t lab" x="185" y="118" text-anchor="middle">band around the fingertips</text>
+    <text class="t lab" x="185" y="298" text-anchor="middle">start with the hand relaxed</text>
+    <text class="t cap" x="22" y="326">1. Loop the band around all four</text>
+    <text class="t cap" x="22" y="344">fingertips, hand relaxed.</text>
+  </g>
+
+  <!-- PANEL 2 -->
+  <g>
+    <rect class="limb" x="505" y="140" width="17" height="62" rx="8" transform="rotate(-20 513 200)"/>
+    <rect class="limb" x="526" y="140" width="17" height="62" rx="8" transform="rotate(-7 534 200)"/>
+    <rect class="limb" x="547" y="140" width="17" height="62" rx="8" transform="rotate(7 555 200)"/>
+    <rect class="limb" x="568" y="140" width="17" height="62" rx="8" transform="rotate(20 576 200)"/>
+    <rect class="limb" x="460" y="200" width="46" height="22" rx="11" transform="rotate(-42 506 211)"/>
+    <rect class="limb" x="500" y="196" width="90" height="82" rx="24"/>
+    <ellipse class="band" cx="545" cy="142" rx="74" ry="12" style="stroke-width:3"/>
+    <path class="acc" d="M462,132 L436,122" marker-end="url(#ar)"/>
+    <path class="acc" d="M628,132 L654,122" marker-end="url(#ar)"/>
+    <text class="t accT" x="545" y="108" text-anchor="middle">open slowly</text>
+    <text class="t lab" x="545" y="298" text-anchor="middle">spread against the band</text>
+    <text class="t cap" x="382" y="326">2. Open the hand slowly against</text>
+    <text class="t cap" x="382" y="344">the band, then release.</text>
+  </g>
+
+  <text class="t dose" x="22" y="382">2 sets of 20, every day. Slow on the way open, slow on the way back.</text>
+</svg>

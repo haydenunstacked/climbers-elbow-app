@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 74 241 320" role="img" aria-label="reverse-tyler-twist step 1">
+  <style>
+    .bg{fill:#FAF7F2}
+    .limb{fill:#EFE9DF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
+    .imp{fill:#DED3BF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
+    .det{stroke:#1F2421;fill:none;stroke-width:2;stroke-linecap:round;opacity:.35}
+    .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.7}
+    .ghost{fill:none;stroke:#C2543D;stroke-width:2;stroke-dasharray:6 5;opacity:.8}
+    .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
+    .h{font-size:22px;font-weight:700}
+    .sub{font-size:13.5px;fill:#6B6257}
+    .cap{font-size:13.5px}
+    .lab{font-size:11.5px;fill:#6B6257}
+    .accT{font-size:12.5px;font-weight:700;fill:#C2543D}
+    .dose{font-size:13px;fill:#4A443C}
+    .div{stroke:#E2D9CB;stroke-width:1.5}
+  </style>
+  <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
+  </marker>
+  <rect x="15" y="74" width="241" height="320" fill="#FAF7F2"/>
+  <g>
+    <rect class="imp" x="124" y="86" width="22" height="170" rx="11"/>
+    <line class="det" x1="126" y1="126" x2="144" y2="126"/>
+    <line class="det" x1="126" y1="166" x2="144" y2="166"/>
+    <line class="det" x1="126" y1="206" x2="144" y2="206"/>
+    <rect class="limb" x="26" y="236" width="92" height="28" rx="14" transform="rotate(-8 72 250)"/>
+    <circle class="limb" cx="112" cy="246" r="8"/>
+    <rect class="limb" x="112" y="212" width="48" height="44" rx="15"/>
+    <line class="det" x1="120" y1="226" x2="142" y2="226"/>
+    <line class="det" x1="120" y1="240" x2="142" y2="240"/>
+    <path class="lead" d="M80,292 L102,268 L114,250"/>
+    <text class="t accT" x="30" y="306">wrist flexed</text>
+    <text class="t lab" x="30" y="222">forearm</text>
+    <text class="t cap" x="22" y="364">1. Bar vertical, right hand</text>
+    <text class="t cap" x="22" y="382">low with the wrist flexed.</text>
+  </g>
+</svg>

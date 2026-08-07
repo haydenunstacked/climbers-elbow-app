@@ -1,0 +1,36 @@
+{
+  "eccentric-wrist-flexion": [
+    "eccentric-wrist-flexion-1.svg",
+    "eccentric-wrist-flexion-2.svg"
+  ],
+  "finger-extensor-band": [
+    "finger-extensor-band-1.svg",
+    "finger-extensor-band-2.svg"
+  ],
+  "isometric-holds": [
+    "isometric-holds-1.svg",
+    "isometric-holds-2.svg"
+  ],
+  "pronator-lever": [
+    "pronator-lever-1.svg",
+    "pronator-lever-2.svg"
+  ],
+  "reverse-tyler-twist": [
+    "reverse-tyler-twist-1.svg",
+    "reverse-tyler-twist-2.svg",
+    "reverse-tyler-twist-3.svg",
+    "reverse-tyler-twist-4.svg"
+  ],
+  "reverse-wrist-curl": [
+    "reverse-wrist-curl-1.svg",
+    "reverse-wrist-curl-2.svg"
+  ],
+  "shoulder-band-work": [
+    "shoulder-band-work-1.svg",
+    "shoulder-band-work-2.svg"
+  ],
+  "wrist-flexor-stretch": [
+    "wrist-flexor-stretch-1.svg",
+    "wrist-flexor-stretch-2.svg"
+  ]
+}

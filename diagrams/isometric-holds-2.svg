@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="366 74 346 286" role="img" aria-label="isometric-holds step 2">
+  <style>
+    .bg{fill:#FAF7F2}
+    .limb{fill:#EFE9DF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
+    .other{fill:#E2E6E2;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
+    .imp{fill:#DED3BF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
+    .det{stroke:#1F2421;fill:none;stroke-width:2;stroke-linecap:round;opacity:.35}
+    .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.7}
+    .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
+    .h{font-size:22px;font-weight:700}
+    .sub{font-size:13.5px;fill:#6B6257}
+    .cap{font-size:13.5px}
+    .lab{font-size:11.5px;fill:#6B6257}
+    .accT{font-size:12.5px;font-weight:700;fill:#C2543D}
+    .dose{font-size:13px;fill:#4A443C}
+    .div{stroke:#E2D9CB;stroke-width:1.5}
+  </style>
+  <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
+  </marker>
+  <rect x="366" y="74" width="346" height="286" fill="#FAF7F2"/>
+  <g>
+    <rect class="imp" x="396" y="230" width="164" height="46" rx="22"/>
+    <text class="t lab" x="476" y="259" text-anchor="middle">thigh</text>
+    <rect class="limb" x="416" y="196" width="142" height="30" rx="15"/>
+    <text class="t lab" x="422" y="188">palm up</text>
+    <rect class="limb" x="556" y="192" width="44" height="36" rx="14"/>
+    <rect class="other" x="552" y="150" width="52" height="28" rx="13"/>
+    <path class="acc" d="M628,152 L628,180" marker-end="url(#ar)"/>
+    <path class="acc" d="M628,226 L628,198" marker-end="url(#ar)"/>
+    <text class="t lab" x="546" y="140" text-anchor="end">left hand presses down</text>
+    <text class="t lab" x="706" y="262" text-anchor="end">right hand presses up</text>
+    <text class="t cap" x="382" y="326">2. Or press the right hand up into</text>
+    <text class="t cap" x="382" y="344">the left. Neither hand wins.</text>
+    <text class="t accT" x="382" y="300">45 seconds at about 70 percent, 5 reps</text>
+  </g>
+</svg>
