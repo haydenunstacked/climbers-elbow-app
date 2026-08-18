@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readdirSync, existsSync } from 'node:fs';
+import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -78,4 +78,36 @@ test('estimateMinutes is monotonic', () => {
   const extra = EXERCISES.filter((e) => e.block === 'extra');
   assert.ok(estimateMinutes([...core, ...extra]) > estimateMinutes(core));
   assert.equal(estimateMinutes([]), 1); // floors at 1 rather than 0
+});
+
+// The splitter rebuilds each panel as a standalone document. Anything the panel
+// references but that lives outside its <g> — gradients, markers, styles — has
+// to be carried across or it silently resolves to nothing. That failed once in
+// exactly this way and only showed up on the deployed site, hence these.
+
+test('a panel that references a gradient also ships its definition', () => {
+  for (const f of readdirSync(DIAGRAMS).filter((n) => n.endsWith('.svg'))) {
+    const svg = readFileSync(join(DIAGRAMS, f), 'utf8');
+    const refs = [...svg.matchAll(/url\(#([\w-]+)\)/g)].map((m) => m[1]);
+    for (const id of refs) {
+      assert.ok(svg.includes(`id="${id}"`), `${f} references #${id} but never defines it`);
+    }
+  }
+});
+
+test('every panel carries its own stylesheet', () => {
+  for (const f of readdirSync(DIAGRAMS).filter((n) => n.endsWith('.svg'))) {
+    const svg = readFileSync(join(DIAGRAMS, f), 'utf8');
+    const classes = new Set([...svg.matchAll(/class="([\w\- ]+)"/g)]
+      .flatMap((m) => m[1].split(/\s+/)).filter(Boolean));
+    for (const c of classes) {
+      assert.ok(svg.includes(`.${c}{`), `${f} uses .${c} but the style block does not define it`);
+    }
+  }
+});
+
+test('the sore spot marker survives the split', () => {
+  const svg = readFileSync(join(DIAGRAMS, 'reverse-tyler-twist-1.svg'), 'utf8');
+  assert.match(svg, /radialGradient/, 'gradient definition missing from the split panel');
+  assert.match(svg, /url\(#sore\)/, 'nothing actually uses the gradient');
 });

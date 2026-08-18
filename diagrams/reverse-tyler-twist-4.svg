@@ -17,6 +17,13 @@
     .dose{font-size:13px;fill:#4A443C}
     .div{stroke:#E2D9CB;stroke-width:1.5}
   </style>
+  <defs>
+    <radialGradient id="sore">
+      <stop offset="0%" stop-color="#C2543D" stop-opacity=".5"/>
+      <stop offset="70%" stop-color="#C2543D" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#C2543D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
   <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
   </marker>

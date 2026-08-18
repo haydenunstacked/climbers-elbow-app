@@ -78,6 +78,7 @@ for (const file of readdirSync(HERE).filter((f) => f.endsWith('.svg'))) {
     const out = [
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${x0} ${cfg.y} ${w} ${cfg.h}" role="img" aria-label="${base} step ${i + 1}">`,
       `  ${style}`,
+      defs ? `  ${defs}` : '',
       marker ? `  ${marker}` : '',
       `  <rect x="${x0}" y="${cfg.y}" width="${w}" height="${cfg.h}" fill="#FAF7F2"/>`,
       `  ${group}`,
