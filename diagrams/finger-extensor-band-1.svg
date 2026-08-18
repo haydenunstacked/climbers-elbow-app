@@ -1,11 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 74 351 286" role="img" aria-label="finger-extensor-band step 1">
   <style>
     .bg{fill:#FAF7F2}
-    .limb{fill:#EFE9DF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .imp{fill:#DED3BF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .band{stroke:#5E7266;fill:none;stroke-width:4;stroke-linecap:round}
-    .det{stroke:#1F2421;fill:none;stroke-width:2;stroke-linecap:round;opacity:.35}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .hd{fill:#B9AE99;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .oth{fill:#E2E7E3;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.42;stroke-linecap:round}
+    .det{stroke:#1F2421;fill:none;stroke-width:1.8;stroke-linecap:round;opacity:.3}
     .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
+    .band{stroke:#5E7266;fill:none;stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round}
     .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
     .h{font-size:22px;font-weight:700}
     .sub{font-size:13.5px;fill:#6B6257}
@@ -20,15 +24,18 @@
   </marker>
   <rect x="15" y="74" width="351" height="286" fill="#FAF7F2"/>
   <g>
-    <rect class="limb" x="145" y="140" width="17" height="62" rx="8"/>
-    <rect class="limb" x="166" y="140" width="17" height="62" rx="8"/>
-    <rect class="limb" x="187" y="140" width="17" height="62" rx="8"/>
-    <rect class="limb" x="208" y="140" width="17" height="62" rx="8"/>
-    <rect class="limb" x="104" y="200" width="46" height="22" rx="11" transform="rotate(-25 148 211)"/>
-    <rect class="limb" x="140" y="196" width="90" height="82" rx="24"/>
-    <ellipse class="band" cx="185" cy="150" rx="48" ry="13"/>
-    <text class="t lab" x="185" y="118" text-anchor="middle">band around the fingertips</text>
-    <text class="t lab" x="185" y="298" text-anchor="middle">start with the hand relaxed</text>
+    <path class="lm" d="M156,236 Q136,228 122,234 Q110,242 115,254 Q122,265 138,263 Q152,260 160,250 Z"/>
+    <path class="lm" d="M158,208 Q162,196 180,193 Q208,190 228,197 Q243,204 245,220 Q246,250 238,268 Q229,283 206,285 Q180,286 166,275 Q155,263 154,242 Q153,220 158,208 Z"/>
+    <path class="ct" d="M162,244 Q158,228 166,214"/>
+    <path class="lm" d="M164,204 L164,158 Q163,148 171,145 Q180,143 184,150 Q186,160 185,170 L185,204 Z"/>
+    <path class="lm" d="M188,202 L188,150 Q187,139 196,136 Q205,134 209,141 Q211,152 210,162 L210,202 Z"/>
+    <path class="lm" d="M213,203 L213,154 Q212,143 221,140 Q230,138 234,146 Q236,156 235,166 L235,203 Z"/>
+    <path class="lm" d="M238,208 L238,166 Q237,156 245,153 Q253,151 257,159 Q259,168 258,177 L258,208 Z"/>
+    <path class="ct" d="M166,176 Q175,173 185,176"/><path class="ct" d="M190,168 Q199,165 210,168"/>
+    <path class="ct" d="M215,172 Q224,169 235,172"/><path class="ct" d="M240,184 Q248,181 258,184"/>
+    <ellipse class="band" cx="211" cy="156" rx="52" ry="13" transform="rotate(-5 211 156)"/>
+    <text class="t lab" x="211" y="120" text-anchor="middle">band around the fingertips</text>
+    <text class="t lab" x="200" y="310" text-anchor="middle">start with the hand relaxed</text>
     <text class="t cap" x="22" y="326">1. Loop the band around all four</text>
     <text class="t cap" x="22" y="344">fingertips, hand relaxed.</text>
   </g>

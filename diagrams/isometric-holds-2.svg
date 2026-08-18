@@ -1,12 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="366 74 346 286" role="img" aria-label="isometric-holds step 2">
   <style>
     .bg{fill:#FAF7F2}
-    .limb{fill:#EFE9DF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .other{fill:#E2E6E2;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .imp{fill:#DED3BF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .det{stroke:#1F2421;fill:none;stroke-width:2;stroke-linecap:round;opacity:.35}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .oth{fill:#E2E7E3;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .torso{fill:#D6CDBB;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.4;stroke-linecap:round}
+    .det{stroke:#1F2421;fill:none;stroke-width:1.8;stroke-linecap:round;opacity:.3}
     .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
-    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.7}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
+    .band{stroke:#5E7266;fill:none;stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round}
     .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
     .h{font-size:22px;font-weight:700}
     .sub{font-size:13.5px;fill:#6B6257}
@@ -20,19 +23,18 @@
     <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
   </marker>
   <rect x="366" y="74" width="346" height="286" fill="#FAF7F2"/>
-  <g>
-    <rect class="imp" x="396" y="230" width="164" height="46" rx="22"/>
-    <text class="t lab" x="476" y="259" text-anchor="middle">thigh</text>
-    <rect class="limb" x="416" y="196" width="142" height="30" rx="15"/>
-    <text class="t lab" x="422" y="188">palm up</text>
-    <rect class="limb" x="556" y="192" width="44" height="36" rx="14"/>
-    <rect class="other" x="552" y="150" width="52" height="28" rx="13"/>
-    <path class="acc" d="M628,152 L628,180" marker-end="url(#ar)"/>
-    <path class="acc" d="M628,226 L628,198" marker-end="url(#ar)"/>
-    <text class="t lab" x="546" y="140" text-anchor="end">left hand presses down</text>
-    <text class="t lab" x="706" y="262" text-anchor="end">right hand presses up</text>
-    <text class="t cap" x="382" y="326">2. Or press the right hand up into</text>
-    <text class="t cap" x="382" y="344">the left. Neither hand wins.</text>
-    <text class="t accT" x="382" y="300">45 seconds at about 70 percent, 5 reps</text>
+  <g transform="translate(378,16)">
+    <path class="im" d="M26,226 Q94,217 148,223 Q172,226 180,242 Q182,258 166,266 Q98,274 32,269 Q17,264 16,248 Q16,232 26,226 Z"/>
+    <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
+    <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
+    <text class="t lab" x="44" y="172">palm up</text>
+    <path class="lm" d="M168,192 Q164,176 176,168 Q188,160 197,170 Q207,160 215,171 Q224,164 229,177 Q233,191 227,204 Q217,221 196,223 Q176,222 169,208 Q164,199 168,192 Z"/>
+    <path class="ct" d="M186,174 Q188,184 185,194"/><path class="ct" d="M204,174 Q206,184 203,194"/>
+    <path class="oth" d="M166,150 Q162,136 174,129 Q186,122 195,131 Q205,122 213,132 Q222,126 227,138 Q231,151 225,162 Q214,176 194,177 Q175,176 168,164 Q163,157 166,150 Z"/>
+    <path class="ct" d="M184,134 Q186,144 183,153"/><path class="ct" d="M202,134 Q204,144 201,153"/>
+    <text class="t lab" x="168" y="130" text-anchor="end">left hand presses down</text>
+    <path class="acc" d="M252,140 L252,166" marker-end="url(#ar)"/>
+    <path class="acc" d="M252,214 L252,188" marker-end="url(#ar)"/>
+    <text class="t lab" x="328" y="248" text-anchor="end">right hand presses up</text>
   </g>
 </svg>

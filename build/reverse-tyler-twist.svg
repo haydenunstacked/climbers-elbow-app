@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" width="1000" height="440" role="img" aria-label="Reverse Tyler Twist, four step sequence">
   <style>
     .bg{fill:#FAF7F2}
-    .limb{fill:#EFE9DF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .imp{fill:#DED3BF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .det{stroke:#1F2421;fill:none;stroke-width:2;stroke-linecap:round;opacity:.35}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.42;stroke-linecap:round}
+    .det{stroke:#1F2421;fill:none;stroke-width:1.8;stroke-linecap:round;opacity:.3}
     .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
-    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.7}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
     .ghost{fill:none;stroke:#C2543D;stroke-width:2;stroke-dasharray:6 5;opacity:.8}
     .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
     .h{font-size:22px;font-weight:700}
@@ -16,6 +17,13 @@
     .dose{font-size:13px;fill:#4A443C}
     .div{stroke:#E2D9CB;stroke-width:1.5}
   </style>
+  <defs>
+    <radialGradient id="sore">
+      <stop offset="0%" stop-color="#C2543D" stop-opacity=".5"/>
+      <stop offset="70%" stop-color="#C2543D" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#C2543D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
   <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
   </marker>
@@ -30,74 +38,106 @@
 
   <!-- PANEL 1 -->
   <g>
-    <rect class="imp" x="124" y="86" width="22" height="170" rx="11"/>
-    <line class="det" x1="126" y1="126" x2="144" y2="126"/>
-    <line class="det" x1="126" y1="166" x2="144" y2="166"/>
-    <line class="det" x1="126" y1="206" x2="144" y2="206"/>
-    <rect class="limb" x="26" y="236" width="92" height="28" rx="14" transform="rotate(-8 72 250)"/>
-    <circle class="limb" cx="112" cy="246" r="8"/>
-    <rect class="limb" x="112" y="212" width="48" height="44" rx="15"/>
-    <line class="det" x1="120" y1="226" x2="142" y2="226"/>
-    <line class="det" x1="120" y1="240" x2="142" y2="240"/>
-    <path class="lead" d="M80,292 L102,268 L114,250"/>
-    <text class="t accT" x="30" y="306">wrist flexed</text>
-    <text class="t lab" x="30" y="222">forearm</text>
+    <rect class="im" x="123" y="86" width="25" height="172" rx="12.5"/>
+    <line class="det" x1="126" y1="122" x2="145" y2="122"/>
+    <line class="det" x1="126" y1="160" x2="145" y2="160"/>
+    <path class="lm" d="M34,220 Q64,213 92,223 Q104,227 110,233 L110,255 Q99,262 77,266 Q53,271 38,265 Q25,259 24,243 Q24,227 34,220 Z"/>
+    <path class="ct" d="M44,234 Q68,242 94,244"/>
+    <path class="ct" d="M40,251 Q64,258 90,258"/>
+    <circle cx="36" cy="256" r="17" fill="url(#sore)"/>
+    <path class="lm" d="M113,205 Q150,200 163,213 Q173,225 171,238 Q169,255 157,263 Q133,269 115,262 Q106,250 106,229 Q108,213 113,205 Z"/>
+    <path class="lm" d="M104,211 Q130,206 152,210 Q161,215 152,221 Q128,225 104,221 Z"/>
+    <path class="lm" d="M102,223 Q130,219 154,223 Q163,228 154,234 Q128,238 102,234 Z"/>
+    <path class="lm" d="M102,236 Q130,232 154,236 Q163,241 154,247 Q128,251 102,247 Z"/>
+    <path class="lm" d="M105,249 Q130,245 150,249 Q159,254 150,259 Q126,263 105,259 Z"/>
+    <path class="ct" d="M136,208 L136,222"/><path class="ct" d="M138,221 L138,235"/><path class="ct" d="M138,234 L138,248"/>
+    <path class="lm" d="M97,243 Q112,236 125,243 Q132,252 123,259 Q108,264 97,257 Z"/>
+    <path class="ct" d="M112,244 Q118,250 114,257"/>
+    <path class="lead" d="M78,300 L96,278 L104,262"/>
+    <text class="t accT" x="28" y="314">wrist flexed</text>
+    <text class="t lab" x="30" y="208">forearm</text>
     <text class="t cap" x="22" y="364">1. Bar vertical, right hand</text>
     <text class="t cap" x="22" y="382">low with the wrist flexed.</text>
   </g>
 
   <!-- PANEL 2 -->
   <g>
-    <rect class="imp" x="374" y="104" width="22" height="170" rx="11"/>
-    <line class="det" x1="376" y1="158" x2="394" y2="142"/>
-    <line class="det" x1="376" y1="198" x2="394" y2="182"/>
-    <line class="det" x1="376" y1="238" x2="394" y2="222"/>
-    <rect class="limb" x="276" y="254" width="92" height="28" rx="14" transform="rotate(-8 322 268)"/>
-    <circle class="limb" cx="362" cy="264" r="8"/>
-    <rect class="limb" x="362" y="230" width="48" height="44" rx="15"/>
-    <line class="det" x1="370" y1="244" x2="392" y2="244"/>
-    <rect class="limb" x="408" y="110" width="86" height="28" rx="14" transform="rotate(10 451 124)"/>
-    <rect class="limb" x="362" y="102" width="48" height="44" rx="15"/>
-    <line class="det" x1="370" y1="116" x2="392" y2="116"/>
-    <path class="acc" d="M352,94 A34,24 0 0 1 418,94" marker-end="url(#ar)"/>
-    <text class="t accT" x="344" y="90" text-anchor="end">twist</text>
-    <text class="t lab" x="462" y="162" text-anchor="middle">left hand</text>
-    <text class="t lab" x="330" y="300" text-anchor="middle">right hand stays low</text>
+    <rect class="im" x="370" y="100" width="25" height="178" rx="12.5"/>
+    <line class="det" x1="373" y1="152" x2="392" y2="140"/>
+    <line class="det" x1="373" y1="186" x2="392" y2="174"/>
+    <!-- right hand and forearm, same grip as panel 1 -->
+    <g transform="translate(247,25)">
+      <path class="lm" d="M34,220 Q64,213 92,223 Q104,227 110,233 L110,255 Q99,262 77,266 Q53,271 38,265 Q25,259 24,243 Q24,227 34,220 Z"/>
+      <path class="ct" d="M44,234 Q68,242 94,244"/>
+      <path class="lm" d="M113,205 Q150,200 163,213 Q173,225 171,238 Q169,255 157,263 Q133,269 115,262 Q106,250 106,229 Q108,213 113,205 Z"/>
+      <path class="lm" d="M104,211 Q130,206 152,210 Q161,215 152,221 Q128,225 104,221 Z"/>
+      <path class="lm" d="M102,223 Q130,219 154,223 Q163,228 154,234 Q128,238 102,234 Z"/>
+      <path class="lm" d="M102,236 Q130,232 154,236 Q163,241 154,247 Q128,251 102,247 Z"/>
+      <path class="lm" d="M105,249 Q130,245 150,249 Q159,254 150,259 Q126,263 105,259 Z"/>
+      <path class="lm" d="M97,243 Q112,236 125,243 Q132,252 123,259 Q108,264 97,257 Z"/>
+    </g>
+    <!-- left hand gripping the top, forearm running up and right -->
+    <path class="lm" d="M406,104 Q446,94 480,100 Q497,104 499,117 Q500,129 489,135 Q455,143 419,137 Q404,132 402,120 Q402,109 406,104 Z"/>
+    <path class="ct" d="M424,113 Q456,119 484,116"/>
+    <path class="lm" d="M376,100 Q404,95 417,107 Q427,117 425,130 Q423,145 411,152 Q390,157 377,150 Q369,139 369,123 Q370,108 376,100 Z"/>
+    <path class="lm" d="M362,106 Q386,101 408,105 Q417,110 408,116 Q384,120 362,116 Z"/>
+    <path class="lm" d="M360,118 Q386,114 410,118 Q419,123 410,129 Q384,133 360,129 Z"/>
+    <path class="lm" d="M360,131 Q386,127 410,131 Q419,136 410,142 Q384,146 360,142 Z"/>
+    <path class="lm" d="M363,144 Q386,140 406,144 Q415,149 406,154 Q382,158 363,154 Z"/>
+    <path class="acc" d="M352,88 A34,24 0 0 1 418,88" marker-end="url(#ar)"/>
+    <text class="t accT" x="344" y="84" text-anchor="end">twist</text>
+    <text class="t lab" x="470" y="162" text-anchor="middle">left hand</text>
+    <text class="t lab" x="330" y="308" text-anchor="middle">right hand stays low</text>
     <text class="t cap" x="274" y="364">2. Left hand grabs the top</text>
     <text class="t cap" x="274" y="382">and twists the bar.</text>
   </g>
 
   <!-- PANEL 3 -->
   <g>
-    <rect class="imp" x="560" y="176" width="152" height="22" rx="11"/>
-    <line class="det" x1="618" y1="178" x2="606" y2="196"/>
-    <line class="det" x1="648" y1="178" x2="636" y2="196"/>
-    <line class="det" x1="678" y1="178" x2="666" y2="196"/>
-    <rect class="limb" x="512" y="218" width="64" height="28" rx="14" transform="rotate(-25 544 232)"/>
-    <rect class="limb" x="694" y="218" width="64" height="28" rx="14" transform="rotate(25 726 232)"/>
-    <rect class="limb" x="552" y="158" width="44" height="58" rx="15"/>
-    <rect class="limb" x="672" y="158" width="44" height="58" rx="15"/>
-    <text class="t lab" x="574" y="146" text-anchor="middle">right</text>
-    <text class="t lab" x="694" y="146" text-anchor="middle">left</text>
-    <text class="t accT" x="636" y="298" text-anchor="middle">bar stays twisted</text>
+    <rect class="im" x="558" y="176" width="156" height="25" rx="12.5"/>
+    <line class="det" x1="618" y1="178" x2="606" y2="199"/>
+    <line class="det" x1="650" y1="178" x2="638" y2="199"/>
+    <line class="det" x1="682" y1="178" x2="670" y2="199"/>
+    <!-- forearms running back toward the body -->
+    <path class="lm" d="M512,232 Q528,222 548,216 Q562,212 570,216 L578,232 Q572,242 556,248 Q534,256 518,252 Q508,246 507,240 Q507,234 512,232 Z"/>
+    <path class="lm" d="M762,232 Q746,222 726,216 Q712,212 704,216 L696,232 Q702,242 718,248 Q740,256 756,252 Q766,246 767,240 Q767,234 762,232 Z"/>
+    <!-- fists on a horizontal bar: fingers wrap top to bottom -->
+    <path class="lm" d="M552,162 Q574,157 592,164 Q602,172 602,188 Q602,206 594,215 Q576,222 558,217 Q548,208 547,190 Q547,172 552,162 Z"/>
+    <path class="lm" d="M553,166 Q549,190 553,212 Q558,220 564,212 Q568,190 564,166 Q558,159 553,166 Z"/>
+    <path class="lm" d="M566,164 Q562,190 566,214 Q571,222 577,214 Q581,190 577,164 Q571,157 566,164 Z"/>
+    <path class="lm" d="M579,164 Q575,190 579,214 Q584,222 590,214 Q594,190 590,164 Q584,157 579,164 Z"/>
+    <path class="lm" d="M592,167 Q588,190 592,211 Q597,218 603,211 Q607,190 603,167 Q597,161 592,167 Z"/>
+    <path class="lm" d="M722,162 Q700,157 682,164 Q672,172 672,188 Q672,206 680,215 Q698,222 716,217 Q726,208 727,190 Q727,172 722,162 Z"/>
+    <path class="lm" d="M721,166 Q725,190 721,212 Q716,220 710,212 Q706,190 710,166 Q716,159 721,166 Z"/>
+    <path class="lm" d="M708,164 Q712,190 708,214 Q703,222 697,214 Q693,190 697,164 Q703,157 708,164 Z"/>
+    <path class="lm" d="M695,164 Q699,190 695,214 Q690,222 684,214 Q680,190 684,164 Q690,157 695,164 Z"/>
+    <path class="lm" d="M682,167 Q686,190 682,211 Q677,218 671,211 Q667,190 671,167 Q677,161 682,167 Z"/>
+    <text class="t lab" x="574" y="150" text-anchor="middle">right</text>
+    <text class="t lab" x="700" y="150" text-anchor="middle">left</text>
+    <text class="t accT" x="636" y="292" text-anchor="middle">bar stays twisted</text>
     <text class="t cap" x="526" y="364">3. Extend both arms out in</text>
     <text class="t cap" x="526" y="382">front, bar horizontal.</text>
   </g>
 
   <!-- PANEL 4 -->
   <g>
-    <rect class="imp" x="826" y="176" width="140" height="24" rx="12"/>
-    <line class="det" x1="898" y1="178" x2="898" y2="198"/>
-    <line class="det" x1="930" y1="178" x2="930" y2="198"/>
-    <rect class="limb" x="776" y="238" width="78" height="28" rx="14" transform="rotate(-35 815 252)"/>
-    <rect class="ghost" x="832" y="158" width="50" height="60" rx="16" transform="rotate(-34 857 218)"/>
-    <rect class="limb" x="832" y="158" width="50" height="60" rx="16"/>
-    <line class="det" x1="840" y1="176" x2="874" y2="176"/>
-    <line class="det" x1="840" y1="192" x2="874" y2="192"/>
+    <rect class="im" x="828" y="176" width="140" height="25" rx="12.5"/>
+    <line class="det" x1="900" y1="179" x2="900" y2="198"/>
+    <line class="det" x1="932" y1="179" x2="932" y2="198"/>
+    <path class="lm" d="M776,268 Q790,248 810,232 Q826,219 840,220 L852,238 Q848,252 830,266 Q810,282 794,282 Q781,278 777,272 Q774,270 776,268 Z"/>
+    <path class="ct" d="M792,262 Q810,246 828,236"/>
+    <g class="ghost" transform="rotate(-34 858 218)">
+      <path d="M834,160 Q858,155 876,164 Q888,173 888,190 Q888,208 878,217 Q856,224 838,217 Q828,206 827,188 Q828,170 834,160 Z"/>
+    </g>
+    <path class="lm" d="M834,160 Q858,155 876,164 Q888,173 888,190 Q888,208 878,217 Q856,224 838,217 Q828,206 827,188 Q828,170 834,160 Z"/>
+    <path class="lm" d="M836,166 Q832,190 836,212 Q841,219 847,212 Q851,190 847,166 Q841,159 836,166 Z"/>
+    <path class="lm" d="M849,164 Q845,190 849,214 Q854,221 860,214 Q864,190 860,164 Q854,157 849,164 Z"/>
+    <path class="lm" d="M862,164 Q858,190 862,214 Q867,221 873,214 Q877,190 873,164 Q867,157 862,164 Z"/>
+    <path class="lm" d="M875,167 Q871,190 875,211 Q880,218 886,211 Q890,190 886,167 Q880,161 875,167 Z"/>
     <path class="acc" d="M828,144 A48,30 0 0 1 898,148" marker-end="url(#ar)"/>
     <text class="t accT" x="908" y="140">4 seconds</text>
-    <line class="ghost" x1="778" y1="296" x2="806" y2="296"/>
-    <text class="t lab" x="814" y="300">dashed = start, flexed</text>
+    <line class="ghost" x1="778" y1="300" x2="806" y2="300"/>
+    <text class="t lab" x="814" y="304">dashed = start, flexed</text>
     <text class="t cap" x="778" y="364">4. Let the right wrist untwist</text>
     <text class="t cap" x="778" y="382">slowly. Only this is the work.</text>
   </g>

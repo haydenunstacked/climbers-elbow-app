@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="262 74 246 320" role="img" aria-label="reverse-tyler-twist step 2">
   <style>
     .bg{fill:#FAF7F2}
-    .limb{fill:#EFE9DF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .imp{fill:#DED3BF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .det{stroke:#1F2421;fill:none;stroke-width:2;stroke-linecap:round;opacity:.35}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.42;stroke-linecap:round}
+    .det{stroke:#1F2421;fill:none;stroke-width:1.8;stroke-linecap:round;opacity:.3}
     .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
-    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.7}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
     .ghost{fill:none;stroke:#C2543D;stroke-width:2;stroke-dasharray:6 5;opacity:.8}
     .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
     .h{font-size:22px;font-weight:700}
@@ -21,21 +22,32 @@
   </marker>
   <rect x="262" y="74" width="246" height="320" fill="#FAF7F2"/>
   <g>
-    <rect class="imp" x="374" y="104" width="22" height="170" rx="11"/>
-    <line class="det" x1="376" y1="158" x2="394" y2="142"/>
-    <line class="det" x1="376" y1="198" x2="394" y2="182"/>
-    <line class="det" x1="376" y1="238" x2="394" y2="222"/>
-    <rect class="limb" x="276" y="254" width="92" height="28" rx="14" transform="rotate(-8 322 268)"/>
-    <circle class="limb" cx="362" cy="264" r="8"/>
-    <rect class="limb" x="362" y="230" width="48" height="44" rx="15"/>
-    <line class="det" x1="370" y1="244" x2="392" y2="244"/>
-    <rect class="limb" x="408" y="110" width="86" height="28" rx="14" transform="rotate(10 451 124)"/>
-    <rect class="limb" x="362" y="102" width="48" height="44" rx="15"/>
-    <line class="det" x1="370" y1="116" x2="392" y2="116"/>
-    <path class="acc" d="M352,94 A34,24 0 0 1 418,94" marker-end="url(#ar)"/>
-    <text class="t accT" x="344" y="90" text-anchor="end">twist</text>
-    <text class="t lab" x="462" y="162" text-anchor="middle">left hand</text>
-    <text class="t lab" x="330" y="300" text-anchor="middle">right hand stays low</text>
+    <rect class="im" x="370" y="100" width="25" height="178" rx="12.5"/>
+    <line class="det" x1="373" y1="152" x2="392" y2="140"/>
+    <line class="det" x1="373" y1="186" x2="392" y2="174"/>
+    <!-- right hand and forearm, same grip as panel 1 -->
+    <g transform="translate(247,25)">
+      <path class="lm" d="M34,220 Q64,213 92,223 Q104,227 110,233 L110,255 Q99,262 77,266 Q53,271 38,265 Q25,259 24,243 Q24,227 34,220 Z"/>
+      <path class="ct" d="M44,234 Q68,242 94,244"/>
+      <path class="lm" d="M113,205 Q150,200 163,213 Q173,225 171,238 Q169,255 157,263 Q133,269 115,262 Q106,250 106,229 Q108,213 113,205 Z"/>
+      <path class="lm" d="M104,211 Q130,206 152,210 Q161,215 152,221 Q128,225 104,221 Z"/>
+      <path class="lm" d="M102,223 Q130,219 154,223 Q163,228 154,234 Q128,238 102,234 Z"/>
+      <path class="lm" d="M102,236 Q130,232 154,236 Q163,241 154,247 Q128,251 102,247 Z"/>
+      <path class="lm" d="M105,249 Q130,245 150,249 Q159,254 150,259 Q126,263 105,259 Z"/>
+      <path class="lm" d="M97,243 Q112,236 125,243 Q132,252 123,259 Q108,264 97,257 Z"/>
+    </g>
+    <!-- left hand gripping the top, forearm running up and right -->
+    <path class="lm" d="M406,104 Q446,94 480,100 Q497,104 499,117 Q500,129 489,135 Q455,143 419,137 Q404,132 402,120 Q402,109 406,104 Z"/>
+    <path class="ct" d="M424,113 Q456,119 484,116"/>
+    <path class="lm" d="M376,100 Q404,95 417,107 Q427,117 425,130 Q423,145 411,152 Q390,157 377,150 Q369,139 369,123 Q370,108 376,100 Z"/>
+    <path class="lm" d="M362,106 Q386,101 408,105 Q417,110 408,116 Q384,120 362,116 Z"/>
+    <path class="lm" d="M360,118 Q386,114 410,118 Q419,123 410,129 Q384,133 360,129 Z"/>
+    <path class="lm" d="M360,131 Q386,127 410,131 Q419,136 410,142 Q384,146 360,142 Z"/>
+    <path class="lm" d="M363,144 Q386,140 406,144 Q415,149 406,154 Q382,158 363,154 Z"/>
+    <path class="acc" d="M352,88 A34,24 0 0 1 418,88" marker-end="url(#ar)"/>
+    <text class="t accT" x="344" y="84" text-anchor="end">twist</text>
+    <text class="t lab" x="470" y="162" text-anchor="middle">left hand</text>
+    <text class="t lab" x="330" y="308" text-anchor="middle">right hand stays low</text>
     <text class="t cap" x="274" y="364">2. Left hand grabs the top</text>
     <text class="t cap" x="274" y="382">and twists the bar.</text>
   </g>

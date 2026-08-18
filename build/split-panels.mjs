@@ -59,6 +59,9 @@ for (const file of readdirSync(HERE).filter((f) => f.endsWith('.svg'))) {
   const src = readFileSync(join(HERE, file), 'utf8');
   const style = between(src, '<style>', '</style>');
   const marker = between(src, '<marker', '</marker>');
+  // gradients and any other defs must ride along, or they resolve to nothing
+  // once the panel is a standalone document
+  const defs = between(src, '<defs>', '</defs>');
   const groups = panelGroups(src);
 
   if (groups.length !== cfg.panels.length) {

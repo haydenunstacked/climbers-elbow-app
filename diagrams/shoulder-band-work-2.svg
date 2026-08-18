@@ -1,13 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="366 74 346 286" role="img" aria-label="shoulder-band-work step 2">
   <style>
     .bg{fill:#FAF7F2}
-    .limb{fill:#EFE9DF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .torso{fill:#D6CDBB;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .imp{fill:#DED3BF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .band{stroke:#5E7266;fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
-    .det{stroke:#1F2421;fill:none;stroke-width:2;stroke-linecap:round;opacity:.35}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .oth{fill:#E2E7E3;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .torso{fill:#D6CDBB;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.4;stroke-linecap:round}
+    .det{stroke:#1F2421;fill:none;stroke-width:1.8;stroke-linecap:round;opacity:.3}
     .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
-    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.7}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
+    .band{stroke:#5E7266;fill:none;stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round}
     .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
     .h{font-size:22px;font-weight:700}
     .sub{font-size:13.5px;fill:#6B6257}
@@ -22,18 +24,19 @@
   </marker>
   <rect x="366" y="74" width="346" height="286" fill="#FAF7F2"/>
   <g>
-    <circle class="limb" cx="446" cy="112" r="24"/>
-    <rect class="torso" x="420" y="134" width="56" height="134" rx="22"/>
-    <rect class="limb" x="472" y="158" width="62" height="26" rx="13"/>
-    <rect class="limb" x="530" y="158" width="58" height="26" rx="13"/>
-    <rect class="limb" x="584" y="156" width="30" height="30" rx="12"/>
-    <path class="band" d="M612,171 L622,161 L632,181 L642,161 L652,181 L662,171"/>
-    <rect class="imp" x="664" y="152" width="14" height="40" rx="4"/>
-    <text class="t lab" x="671" y="208" text-anchor="middle">anchor</text>
-    <path class="acc" d="M576,124 L506,124" marker-end="url(#ar)"/>
-    <text class="t accT" x="584" y="128">pull back</text>
-    <path class="lead" d="M452,286 L458,270"/>
-    <text class="t lab" x="452" y="300" text-anchor="middle">squeeze the shoulder blades</text>
+    <circle class="lm" cx="452" cy="114" r="25"/>
+    <path class="torso" d="M424,148 Q452,140 476,148 Q488,154 490,174 Q494,216 488,250 Q482,268 462,272 Q440,276 426,270 Q414,264 412,246 Q408,214 412,174 Q414,154 424,148 Z"/>
+    <path class="lm" d="M484,158 Q516,151 546,158 Q560,163 560,176 Q560,189 546,193 Q516,199 484,192 Q472,187 472,175 Q472,163 484,158 Z"/>
+    <path class="lm" d="M550,161 Q578,155 602,161 Q614,166 614,177 Q614,189 602,194 Q578,199 550,193 Q540,188 540,177 Q540,166 550,161 Z"/>
+    <path class="lm" d="M598,170 Q594,158 604,152 Q614,146 621,154 Q629,147 635,156 Q642,151 646,161 Q649,172 644,182 Q635,195 618,196 Q602,195 597,184 Q593,176 598,170 Z"/>
+    <path class="ct" d="M613,157 Q615,166 612,175"/><path class="ct" d="M628,158 Q630,167 627,176"/>
+    <path class="band" d="M628,177 L637,167 L646,187 L655,167 L664,187 L672,177"/>
+    <rect class="im" x="674" y="157" width="14" height="40" rx="5"/>
+    <text class="t lab" x="681" y="212" text-anchor="middle">anchor</text>
+    <path class="acc" d="M578,122 L500,122" marker-end="url(#ar)"/>
+    <text class="t accT" x="586" y="126">pull back</text>
+    <path class="lead" d="M452,284 L458,272"/>
+    <text class="t lab" x="452" y="298" text-anchor="middle">squeeze the shoulder blades</text>
     <text class="t cap" x="382" y="326">2. Horizontal row. Drive the elbow</text>
     <text class="t cap" x="382" y="344">back, do not shrug.</text>
   </g>

@@ -1,10 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 74 351 286" role="img" aria-label="reverse-wrist-curl step 1">
   <style>
     .bg{fill:#FAF7F2}
-    .limb{fill:#EFE9DF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .imp{fill:#DED3BF;stroke:#1F2421;stroke-width:2.5;stroke-linejoin:round}
-    .det{stroke:#1F2421;fill:none;stroke-width:2;stroke-linecap:round;opacity:.35}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .hd{fill:#B9AE99;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .oth{fill:#E2E7E3;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .torso{fill:#D6CDBB;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.4;stroke-linecap:round}
+    .det{stroke:#1F2421;fill:none;stroke-width:1.8;stroke-linecap:round;opacity:.3}
     .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
+    .band{stroke:#5E7266;fill:none;stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round}
     .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
     .h{font-size:22px;font-weight:700}
     .sub{font-size:13.5px;fill:#6B6257}
@@ -19,16 +25,18 @@
   </marker>
   <rect x="15" y="74" width="351" height="286" fill="#FAF7F2"/>
   <g>
-    <rect class="imp" x="30" y="214" width="164" height="46" rx="22"/>
-    <text class="t lab" x="110" y="243" text-anchor="middle">thigh</text>
-    <rect class="limb" x="50" y="180" width="142" height="30" rx="15"/>
-    <text class="t accT" x="56" y="172">palm down</text>
-    <rect class="limb" x="190" y="178" width="44" height="34" rx="13" transform="rotate(42 192 194)"/>
-    <circle class="imp" cx="238" cy="234" r="21"/>
-    <circle class="det" cx="238" cy="234" r="8"/>
-    <path class="acc" d="M292,244 L292,180" marker-end="url(#ar)"/>
-    <text class="t accT" x="292" y="168" text-anchor="middle">curl up</text>
-    <text class="t lab" x="110" y="300" text-anchor="middle">bottom, wrist dropped</text>
+    <path class="im" d="M26,226 Q94,217 148,223 Q172,226 180,242 Q182,258 166,266 Q98,274 32,269 Q17,264 16,248 Q16,232 26,226 Z"/>
+    <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
+    <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
+    <text class="t accT" x="52" y="172">palm down</text>
+    <path class="lm" d="M168,206 Q164,222 176,230 Q188,238 197,228 Q207,238 215,227 Q224,234 229,221 Q233,207 227,194 Q217,177 196,175 Q176,176 169,190 Q164,199 168,206 Z"/>
+    <path class="ct" d="M186,224 Q188,214 185,204"/><path class="ct" d="M204,224 Q206,214 203,204"/>
+    <circle class="im" cx="236" cy="266" r="21"/>
+    <circle class="det" cx="236" cy="266" r="8"/>
+    <path class="im" d="M208,234 L224,244 L217,256 L201,246 Z"/>
+    <text class="t lab" x="120" y="304" text-anchor="middle">bottom, wrist dropped</text>
+    <path class="acc" d="M304,246 L304,182" marker-end="url(#ar)"/>
+    <text class="t accT" x="304" y="170" text-anchor="middle">curl up</text>
     <text class="t cap" x="22" y="326">1. Start with the wrist dropped,</text>
     <text class="t cap" x="22" y="344">knuckles pointing at the floor.</text>
   </g>
