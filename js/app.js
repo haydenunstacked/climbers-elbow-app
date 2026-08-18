@@ -1,7 +1,7 @@
 // Screens, timers and DOM. All the impure parts live here.
 
 import { EXERCISES, byId, PAIN_RULE, PROGRAM_WEEKS } from './protocol.js';
-import { planFor, extraBlockStatus, programWeek, dayKey } from './scheduler.js';
+import { planFor, extraBlockStatus, programWeek, dayKey, restAfterSet, formatClock } from './scheduler.js';
 import { load, recordSession, isMemoryOnly } from './store.js';
 
 const root = document.getElementById('app');
@@ -167,7 +167,7 @@ function screenSession() {
 
 // ---------------------------------------------------------------- exercise
 
-function screenExercise(overrideEx = null) {
+function screenExercise(overrideEx = null, resting = 0) {
   const { plan } = session;
   const ex = overrideEx ?? plan.exercises[session.index];
   const total = plan.exercises.length;
@@ -207,35 +207,52 @@ function screenExercise(overrideEx = null) {
         ${overrideEx ? `<button class="altlink" data-unalt>Back to the ${esc(plan.exercises[session.index].name)}</button>` : ''}
       </div>
       <div class="foot">
-        <div class="setrow">
-          <span class="setlab">${esc(setWord)} ${Math.min(setsDone + 1, ex.sets)} of ${ex.sets}</span>
-          <span class="sdots">${sdots}</span>
-        </div>
-        ${timerHtml}
-        <div class="row">
-          <button class="cta alt" data-skip>Skip</button>
-          <button class="cta" data-setdone>${setWord} done</button>
-        </div>
+        ${resting > 0 ? `
+          <div class="rest">
+            <div class="restTop">
+              <span class="restLab">Resting</span>
+              <span class="restNext">next: ${esc(setWord.toLowerCase())} ${Math.min(setsDone + 1, ex.sets)} of ${ex.sets}</span>
+            </div>
+            <div class="restClock" data-restclock>${formatClock(resting)}</div>
+            <div class="track"><div class="fill" data-restfill style="width:0%"></div></div>
+          </div>
+          <button class="cta alt" data-restskip>Skip rest</button>
+        ` : `
+          <div class="setrow">
+            <span class="setlab">${esc(setWord)} ${Math.min(setsDone + 1, ex.sets)} of ${ex.sets}</span>
+            <span class="sdots">${sdots}</span>
+          </div>
+          ${timerHtml}
+          <div class="row">
+            <button class="cta alt" data-skip>Skip</button>
+            <button class="cta" data-setdone>${setWord} done</button>
+          </div>
+        `}
       </div>
     </div>`);
 
   wireSwipe(node);
-  const stopTimer = ex.tempo ? wireTimer(node, ex) : () => {};
+  const stopTimer = (ex.tempo && resting === 0) ? wireTimer(node, ex) : () => {};
+  const stopRest = resting > 0
+    ? wireRest(node, resting, () => show(screenExercise(overrideEx, 0)))
+    : () => {};
 
   node.addEventListener('click', (e) => {
     unlockAudio();
-    if (e.target.closest('[data-back]')) { stopTimer(); return show(screenSession()); }
+    if (e.target.closest('[data-back]')) { stopTimer(); stopRest(); return show(screenSession()); }
     if (e.target.closest('[data-alt]')) { stopTimer(); return show(screenExercise(byId(ex.altId))); }
     if (e.target.closest('[data-unalt]')) { stopTimer(); return show(screenExercise()); }
-    if (e.target.closest('[data-skip]')) { stopTimer(); return advance(); }
+    if (e.target.closest('[data-skip]')) { stopTimer(); stopRest(); return advance(); }
+    if (e.target.closest('[data-restskip]')) { stopRest(); return show(screenExercise(overrideEx, 0)); }
     if (e.target.closest('[data-setdone]')) {
       stopTimer();
       // credit the real exercise even when running the alternate
-      const creditId = overrideEx ? plan.exercises[session.index].id : ex.id;
+      const real = plan.exercises[session.index];
+      const creditId = overrideEx ? real.id : ex.id;
       const now = (session.setsDone[creditId] ?? 0) + 1;
       session.setsDone[creditId] = now;
-      if (now >= plan.exercises[session.index].sets) return advance();
-      return show(screenExercise(overrideEx));
+      if (now >= real.sets) return advance();
+      return show(screenExercise(overrideEx, restAfterSet(real, now)));
     }
   });
 
@@ -260,6 +277,59 @@ function wireSwipe(node) {
     const i = Math.round(strip.scrollLeft / strip.clientWidth);
     dots.forEach((d, j) => d.classList.toggle('on', j === i));
   }, { passive: true });
+}
+
+/**
+ * Counts a rest period down and calls onDone when it expires. Driven from a
+ * timestamp for the same reason the tempo timer is: rest is the part of a
+ * session you are most likely to spend with the phone in your pocket, and an
+ * interval-based clock would silently lose time there.
+ */
+function wireRest(node, seconds, onDone) {
+  const clock = node.querySelector('[data-restclock]');
+  const fill = node.querySelector('[data-restfill]');
+  if (!clock) return () => {};
+
+  const endsAt = Date.now() + seconds * 1000;
+  let raf = 0;
+  let timer = 0;
+  let live = true;
+
+  const stop = () => {
+    live = false;
+    cancelAnimationFrame(raf);
+    clearTimeout(timer);
+    document.removeEventListener('visibilitychange', onVis);
+  };
+
+  const finish = () => {
+    if (!live) return;
+    clock.textContent = formatClock(0);
+    fill.style.width = '100%';
+    beep(880, 240);
+    stop();
+    onDone();
+  };
+
+  const tick = () => {
+    if (!live) return;
+    const left = (endsAt - Date.now()) / 1000;
+    if (left <= 0) return finish();
+    clock.textContent = formatClock(left);
+    fill.style.width = `${((seconds - left) / seconds) * 100}%`;
+    raf = requestAnimationFrame(tick);
+  };
+
+  // Three independent paths to completion, because each one alone has a hole.
+  // rAF paints the smooth countdown but stops dead whenever the page is not
+  // being rendered. The timeout still fires when the page is merely hidden.
+  // The visibility handler recomputes from the timestamp for the case iOS
+  // suspends everything, which it does to a backgrounded PWA.
+  timer = setTimeout(finish, seconds * 1000 + 40);
+  const onVis = () => { if (!document.hidden && live) { cancelAnimationFrame(raf); tick(); } };
+  document.addEventListener('visibilitychange', onVis);
+  tick();
+  return stop;
 }
 
 /**

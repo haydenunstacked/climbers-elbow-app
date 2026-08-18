@@ -108,3 +108,25 @@ export function extraBlockStatus(done, date = new Date()) {
     message: `${noun} to go, ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} left.`,
   };
 }
+
+/**
+ * Seconds to rest after finishing a set. Zero means move straight on.
+ *
+ * Returns nothing after the final set, because the session should roll on to
+ * the next exercise rather than sit you down. Also returns nothing where the
+ * exercise declares no rest, which is the stretch, where you just switch side.
+ *
+ * @param {{sets:number, rest:number}} exercise
+ * @param {number} setsCompleted how many sets are done, counting the one just finished
+ */
+export function restAfterSet(exercise, setsCompleted) {
+  if (!exercise) return 0;
+  if (setsCompleted >= exercise.sets) return 0;
+  return Math.max(0, exercise.rest ?? 0);
+}
+
+/** Seconds to m:ss. Clamps at zero so a late tick never shows a negative clock. */
+export function formatClock(seconds) {
+  const s = Math.max(0, Math.round(seconds));
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+}

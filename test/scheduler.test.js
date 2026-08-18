@@ -1,9 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { EXERCISES } from '../js/protocol.js';
 
 import {
   dayKey, isoWeek, daysBetween, programWeek, daysLeftInWeek,
-  planFor, extraBlockStatus, EXTRA_BLOCK_TARGET,
+  planFor, extraBlockStatus, EXTRA_BLOCK_TARGET, restAfterSet, formatClock,
 } from '../js/scheduler.js';
 
 test('dayKey uses local time, not UTC', () => {
@@ -110,4 +111,50 @@ test('extra block status flags a week that can no longer be saved', () => {
 
 test('singular day wording on the last day of the week', () => {
   assert.match(extraBlockStatus(2, new Date(2026, 7, 9)).message, /1 day left/);
+});
+
+// ---------------------------------------------------------------- rest timer
+
+test('restAfterSet gives the exercise rest between sets', () => {
+  const tyler = { sets: 3, rest: 60 };
+  assert.equal(restAfterSet(tyler, 1), 60); // 1 of 3 done, rest before set 2
+  assert.equal(restAfterSet(tyler, 2), 60); // 2 of 3 done, rest before set 3
+});
+
+test('restAfterSet gives nothing after the final set', () => {
+  // the session should roll straight on to the next exercise
+  assert.equal(restAfterSet({ sets: 3, rest: 60 }, 3), 0);
+  assert.equal(restAfterSet({ sets: 2, rest: 45 }, 2), 0);
+});
+
+test('restAfterSet respects an exercise that declares no rest', () => {
+  // the stretch is rest: 0, you just switch position
+  assert.equal(restAfterSet({ sets: 2, rest: 0 }, 1), 0);
+});
+
+test('restAfterSet never returns a negative or overshoot value', () => {
+  assert.equal(restAfterSet({ sets: 2, rest: 45 }, 5), 0); // more done than exist
+  assert.equal(restAfterSet({ sets: 2, rest: -10 }, 1), 0); // bad data
+});
+
+test('restAfterSet works for every real exercise without throwing', () => {
+  for (const ex of EXERCISES) {
+    for (let done = 0; done <= ex.sets; done++) {
+      const r = restAfterSet(ex, done);
+      assert.ok(Number.isFinite(r) && r >= 0, `${ex.id} at ${done} gave ${r}`);
+      if (done >= ex.sets) assert.equal(r, 0, `${ex.id} should not rest after its last set`);
+    }
+  }
+});
+
+test('formatClock renders mm:ss', () => {
+  assert.equal(formatClock(0), '0:00');
+  assert.equal(formatClock(7), '0:07');
+  assert.equal(formatClock(47), '0:47');
+  assert.equal(formatClock(60), '1:00');
+  assert.equal(formatClock(125), '2:05');
+});
+
+test('formatClock clamps rather than showing a negative clock', () => {
+  assert.equal(formatClock(-3), '0:00');
 });
