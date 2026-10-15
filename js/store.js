@@ -21,6 +21,7 @@ export const DEFAULT_PROFILE = Object.freeze({
   wristPhase: 1,
   wristRung: 1,
   redFlagsCheckedOn: null, // dayKey of the last clean red-flag screen
+  redFlagHold: false, // a yes on the screen, cleared only by the user
 });
 
 function freshWeek(today) {
@@ -34,6 +35,7 @@ function fresh(today) {
     week: freshWeek(today),
     profile: { ...DEFAULT_PROFILE },
     checkins: {},
+    lastHeavyDay: null,
   };
 }
 
@@ -51,12 +53,14 @@ export function migrate(raw, today = new Date()) {
       week: { ...freshWeek(today), ...(s.week ?? {}) },
       profile: { ...DEFAULT_PROFILE },
       checkins: {},
+      lastHeavyDay: (s.week?.extraCreditDays ?? []).slice(-1)[0] ?? null,
     };
   }
   if (s.v !== SCHEMA) return fresh(today);
   s.profile = { ...DEFAULT_PROFILE, ...(s.profile ?? {}) };
   s.checkins = s.checkins && typeof s.checkins === 'object' ? s.checkins : {};
   s.week = { ...freshWeek(today), ...(s.week ?? {}) };
+  s.lastHeavyDay = s.lastHeavyDay ?? null;
   return s;
 }
 
@@ -128,14 +132,16 @@ export function createStore(getStorage = () => globalThis.localStorage) {
     return state;
   }
 
-  /** Records a finished session. Extra blocks only count once per day. */
+  /** Records a finished session. A heavy day only counts once per day. */
   function recordSession(plan, today = new Date()) {
     const state = load(today);
     const key = dayKey(today);
     if (!state.week.daysCompleted.includes(key)) state.week.daysCompleted.push(key);
-    if (plan.countsAsExtra && !state.week.extraCreditDays.includes(key)) {
+    const heavy = plan.countsAsHeavy ?? plan.countsAsExtra;
+    if (heavy && !state.week.extraCreditDays.includes(key)) {
       state.week.extraCreditDays.push(key);
       state.week.extraBlocksDone += 1;
+      state.lastHeavyDay = key;
     }
     return write(state);
   }

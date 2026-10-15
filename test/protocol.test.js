@@ -4,7 +4,7 @@ import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { EXERCISES, byId, estimateMinutes } from '../js/protocol.js';
+import { EXERCISES, byId, estimateMinutes, DIAGNOSES, diagnosisById } from '../js/protocol.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIAGRAMS = join(ROOT, 'diagrams');
@@ -17,7 +17,10 @@ test('exercise ids are unique', () => {
 test('every exercise has the fields the UI reads', () => {
   for (const e of EXERCISES) {
     assert.ok(e.id && e.name, `missing id or name: ${JSON.stringify(e)}`);
-    assert.ok(['core', 'extra', 'flare', 'alt'].includes(e.block), `bad block on ${e.id}`);
+    assert.ok(['light', 'heavy', 'wrist2', 'wrist3', 'wrist4', 'alt', 'original'].includes(e.group), `bad group on ${e.id}`);
+    assert.ok(Array.isArray(e.joints) && e.joints.length > 0, `no joints on ${e.id}`);
+    assert.ok(['wrist', 'elbow'].includes(e.painRule), `bad painRule on ${e.id}`);
+    assert.ok(e.setup, `no setup cue on ${e.id}`);
     assert.ok(Number.isInteger(e.sets) && e.sets > 0, `bad sets on ${e.id}`);
     assert.ok(e.dose && e.cue, `missing dose or cue on ${e.id}`);
     assert.ok(Number.isFinite(e.rest) && e.rest >= 0, `bad rest on ${e.id}`);
@@ -52,11 +55,16 @@ test('tempo blocks are well formed', () => {
   }
 });
 
-test('the three blocks are each three exercises, flare is two', () => {
-  const count = (b) => EXERCISES.filter((e) => e.block === b).length;
-  assert.equal(count('core'), 3);
-  assert.equal(count('extra'), 3);
-  assert.equal(count('flare'), 2);
+test('every exercise that loads the wrist follows the wrist pain rule, outside the original programme', () => {
+  for (const e of EXERCISES) {
+    if (e.group === 'original') continue;
+    if (e.joints.includes('wrist')) assert.equal(e.painRule, 'wrist', e.id);
+  }
+});
+
+test('every diagnosis has a cap between 0 and 4', () => {
+  for (const d of DIAGNOSES) assert.ok(Number.isInteger(d.cap) && d.cap >= 0 && d.cap <= 4, d.id);
+  assert.equal(diagnosisById('nonsense').id, 'unknown');
 });
 
 test('an exercise that offers an alternate points at a real one', () => {
@@ -64,7 +72,7 @@ test('an exercise that offers an alternate points at a real one', () => {
     if (!e.altId) continue;
     const alt = byId(e.altId);
     assert.ok(alt, `${e.id} points at missing alt ${e.altId}`);
-    assert.equal(alt.block, 'alt', `${alt.id} should be in the alt block`);
+    assert.equal(alt.group, 'alt', `${alt.id} should be in the alt group`);
     assert.ok(e.altLabel, `${e.id} has altId but no altLabel`);
   }
 });
@@ -74,8 +82,8 @@ test('byId returns null rather than throwing on an unknown id', () => {
 });
 
 test('estimateMinutes is monotonic', () => {
-  const core = EXERCISES.filter((e) => e.block === 'core');
-  const extra = EXERCISES.filter((e) => e.block === 'extra');
+  const core = EXERCISES.filter((e) => e.group === 'light');
+  const extra = EXERCISES.filter((e) => e.group === 'heavy');
   assert.ok(estimateMinutes([...core, ...extra]) > estimateMinutes(core));
   assert.equal(estimateMinutes([]), 1); // floors at 1 rather than 0
 });
