@@ -42,5 +42,7 @@
     <path class="lead" d="M132,170 L156,174"/>
     <text class="t lab" x="128" y="168" text-anchor="end">thumb</text>
     <text class="t accT" x="104" y="304" text-anchor="middle">palm out, thumb turned out</text>
+    <text class="t cap" x="22" y="326">2. Roll the forearm the other way,</text>
+    <text class="t cap" x="22" y="344">palm out, thumb turned outward.</text>
   </g>
 </svg>

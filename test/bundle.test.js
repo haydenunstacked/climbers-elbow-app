@@ -41,7 +41,7 @@ test('every diagram is embedded, none left as a file path', () => {
   const map = html.match(/window\.__DIAGRAMS__ = (\{[\s\S]*?\});/)?.[1];
   assert.ok(map, 'diagram map missing');
   const parsed = JSON.parse(map);
-  assert.equal(Object.keys(parsed).length, 18);
+  assert.equal(Object.keys(parsed).length, 26);
   for (const [name, uri] of Object.entries(parsed)) {
     assert.ok(uri.startsWith('data:image/svg+xml;base64,'), `${name} is not a data URI`);
     const svg = Buffer.from(uri.split(',')[1], 'base64').toString('utf8');

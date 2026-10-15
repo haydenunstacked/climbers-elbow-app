@@ -61,9 +61,8 @@
     <path class="acc" d="M236,118 A74,74 0 0 1 258,210" marker-end="url(#ar)"/>
     <text class="t accT" x="353" y="164" text-anchor="end">5 second</text>
     <text class="t accT" x="353" y="180" text-anchor="end">lower</text>
+    <text class="t cap" x="31" y="326">2. Rotate to vertical through</text>
+    <text class="t cap" x="31" y="344">pronation, then lower slowly.</text>
   </g>
-  <text class="t cap" x="382" y="326">2. Rotate to vertical through</text>
-  <text class="t cap" x="382" y="344">pronation, then lower slowly.</text>
-
   <text class="t dose" x="22" y="382">2 sets of 15 to 20, three days a week. Early on, use the free hand to help it back up so only the lowering is loaded.</text>
 </svg>

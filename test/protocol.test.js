@@ -17,7 +17,7 @@ test('exercise ids are unique', () => {
 test('every exercise has the fields the UI reads', () => {
   for (const e of EXERCISES) {
     assert.ok(e.id && e.name, `missing id or name: ${JSON.stringify(e)}`);
-    assert.ok(['light', 'heavy', 'wrist2', 'wrist3', 'wrist4', 'alt', 'original'].includes(e.group), `bad group on ${e.id}`);
+    assert.ok(['light', 'heavy', 'heavy4', 'wrist2', 'wrist3', 'wrist4', 'alt', 'original'].includes(e.group), `bad group on ${e.id}`);
     assert.ok(Array.isArray(e.joints) && e.joints.length > 0, `no joints on ${e.id}`);
     assert.ok(['wrist', 'elbow'].includes(e.painRule), `bad painRule on ${e.id}`);
     assert.ok(e.setup, `no setup cue on ${e.id}`);
@@ -118,4 +118,13 @@ test('the sore spot marker survives the split', () => {
   const svg = readFileSync(join(DIAGRAMS, 'reverse-tyler-twist-1.svg'), 'utf8');
   assert.match(svg, /radialGradient/, 'gradient definition missing from the split panel');
   assert.match(svg, /url\(#sore\)/, 'nothing actually uses the gradient');
+});
+
+test('every split panel carries its own numbered step caption', () => {
+  // Captions drawn outside a panel's group were silently dropped by the splitter,
+  // and five second panels shipped without them for two months.
+  for (const f of readdirSync(DIAGRAMS).filter((n) => n.endsWith('.svg'))) {
+    const svg = readFileSync(join(DIAGRAMS, f), 'utf8');
+    assert.match(svg, /class="t cap"[^>]*>\s*\d\./, `${f} has no numbered caption`);
+  }
 });

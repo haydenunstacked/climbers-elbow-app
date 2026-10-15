@@ -44,9 +44,10 @@
     <path class="lm" d="M875,167 Q871,190 875,211 Q880,218 886,211 Q890,190 886,167 Q880,161 875,167 Z"/>
     <path class="acc" d="M828,144 A48,30 0 0 1 898,148" marker-end="url(#ar)"/>
     <text class="t accT" x="908" y="140">4 seconds</text>
+    <text class="t accT" x="908" y="248">stop at straight</text>
     <line class="ghost" x1="778" y1="300" x2="806" y2="300"/>
     <text class="t lab" x="814" y="304">dashed = start, flexed</text>
-    <text class="t cap" x="778" y="364">4. Let the right wrist untwist</text>
-    <text class="t cap" x="778" y="382">slowly. Only this is the work.</text>
+    <text class="t cap" x="778" y="364">4. Untwist slowly to a straight</text>
+    <text class="t cap" x="778" y="382">wrist, then stop. That is the work.</text>
   </g>
 </svg>

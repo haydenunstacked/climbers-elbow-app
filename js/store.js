@@ -3,26 +3,21 @@
 //   week      how many extra blocks are done this week, resets every Monday
 //   profile   which wrist, what the wrist is thought to be, its rehab phase and
 //             sloper ladder rung, and when the red-flag screen was last passed
-//   checkins  the one-tap morning check on each joint, last 14 days only
+//   checkins  the morning 0 to 10 score for each joint, last 28 days only
 //
 // Falls back to memory if Safari blocks storage, so the app still runs for the
 // session. Schema changes migrate rather than wipe, because the week count and
 // the wrist phase are worth keeping across an update.
 
 import { isoWeek, dayKey, daysBetween } from './scheduler.js';
+import { DEFAULT_PROFILE } from './protocol.js';
+
+export { DEFAULT_PROFILE };
 
 const KEY = 'climbers-elbow-v1'; // key name kept so v1 data is found and migrated
 export const SCHEMA = 2;
-const CHECKIN_DAYS = 14;
+const CHECKIN_DAYS = 28; // two full weeks of comparison plus slack
 
-export const DEFAULT_PROFILE = Object.freeze({
-  wristSide: 'unknown', // 'left' | 'right' | 'unknown'
-  wristDiagnosis: 'unknown',
-  wristPhase: 1,
-  wristRung: 1,
-  redFlagsCheckedOn: null, // dayKey of the last clean red-flag screen
-  redFlagHold: false, // a yes on the screen, cleared only by the user
-});
 
 function freshWeek(today) {
   return { isoWeek: isoWeek(today), extraBlocksDone: 0, daysCompleted: [], extraCreditDays: [] };
@@ -36,6 +31,7 @@ function fresh(today) {
     profile: { ...DEFAULT_PROFILE },
     checkins: {},
     lastHeavyDay: null,
+    lastClimbDay: null,
   };
 }
 
@@ -61,6 +57,7 @@ export function migrate(raw, today = new Date()) {
   s.checkins = s.checkins && typeof s.checkins === 'object' ? s.checkins : {};
   s.week = { ...freshWeek(today), ...(s.week ?? {}) };
   s.lastHeavyDay = s.lastHeavyDay ?? null;
+  s.lastClimbDay = s.lastClimbDay ?? null;
   return s;
 }
 
@@ -160,6 +157,13 @@ export function createStore(getStorage = () => globalThis.localStorage) {
     return write(state);
   }
 
+  /** Climbing counts as forearm load, so the next day cannot be a heavy day. */
+  function recordClimb(today = new Date()) {
+    const state = load(today);
+    state.lastClimbDay = dayKey(today);
+    return write(state);
+  }
+
   function isMemoryOnly() { backing(); return usingMemory; }
 
   function reset(today = new Date()) {
@@ -169,7 +173,7 @@ export function createStore(getStorage = () => globalThis.localStorage) {
     return read(today);
   }
 
-  return { load, recordSession, setProfile, recordCheckin, isMemoryOnly, reset };
+  return { load, recordSession, recordClimb, setProfile, recordCheckin, isMemoryOnly, reset };
 }
 
 // The app's own store, over localStorage.
@@ -178,5 +182,6 @@ export const load = appStore.load;
 export const recordSession = appStore.recordSession;
 export const setProfile = appStore.setProfile;
 export const recordCheckin = appStore.recordCheckin;
+export const recordClimb = appStore.recordClimb;
 export const isMemoryOnly = appStore.isMemoryOnly;
 export const _reset = appStore.reset;

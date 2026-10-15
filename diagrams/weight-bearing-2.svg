@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="366 74 346 286" role="img" aria-label="weight-bearing step 2">
+  <style>
+    .bg{fill:#FAF7F2}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .oth{fill:#E2E7E3;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .torso{fill:#D6CDBB;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.4;stroke-linecap:round}
+    .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
+    .ghost{fill:none;stroke:#C2543D;stroke-width:2;stroke-dasharray:6 5;opacity:.8}
+    .wall{fill:#E8E1D4;stroke:#1F2421;stroke-width:2.2}
+    .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
+    .h{font-size:22px;font-weight:700}
+    .sub{font-size:13.5px;fill:#6B6257}
+    .cap{font-size:13.5px}
+    .lab{font-size:11.5px;fill:#6B6257}
+    .accT{font-size:12.5px;font-weight:700;fill:#C2543D}
+    .dose{font-size:13px;fill:#4A443C}
+    .div{stroke:#E2D9CB;stroke-width:1.5}
+  </style>
+  <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
+  </marker>
+  <rect x="366" y="74" width="346" height="286" fill="#FAF7F2"/>
+  <g>
+    <rect class="wall" x="560" y="214" width="140" height="18" rx="4"/>
+    <rect class="wall" x="572" y="232" width="10" height="70"/><rect class="wall" x="678" y="232" width="10" height="70"/>
+    <text class="t lab" x="630" y="250" text-anchor="middle">bench</text>
+    <circle class="lm" cx="560" cy="150" r="20"/>
+    <path class="torso" d="M392,262 Q470,214 540,170 Q552,164 560,174 Q566,186 556,194 Q486,240 404,286 Q392,292 386,282 Q382,270 392,262 Z"/>
+    <path class="lm" d="M540,180 Q560,190 584,200 Q594,206 590,214 Q584,220 574,216 Q550,206 532,196 Z"/>
+    <path class="lm" d="M576,190 Q590,184 600,192 Q608,202 602,212 Q594,218 582,216 Q572,210 572,200 Q572,194 576,190 Z"/>
+    <path class="ct" d="M584,194 Q590,200 588,210"/>
+    <path class="lead" d="M630,164 L596,190"/>
+    <text class="t lab" x="634" y="160">fists keep the</text>
+    <text class="t lab" x="634" y="174">wrist straight</text>
+    <text class="t accT" x="382" y="300">3 × 10, phase 4</text>
+    <text class="t cap" x="382" y="326">2. Push-ups on fists against a bench</text>
+    <text class="t cap" x="382" y="344">or counter, body in one line.</text>
+  </g>
+</svg>

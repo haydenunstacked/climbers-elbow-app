@@ -35,7 +35,7 @@ export const EXERCISES = [
     setup: 'Forearm resting on a table, hand off the edge, no weight',
     tempo: null,
     rest: 30,
-    note: 'The path that loads the middle of the wrist least.',
+    note: 'Where the one dosed TFCC programme starts. Unloaded, and the motion takes the least effort.',
     panels: ['dart-throw-1.svg', 'dart-throw-2.svg'],
   },
   {
@@ -46,11 +46,12 @@ export const EXERCISES = [
     painRule: 'wrist',
     sets: 5,
     dose: '5 × 30 seconds, about half effort',
-    cue: 'Turn the palm down into the other hand. Neither hand wins',
-    setup: 'Elbow at your side, bent to 90, thumb up, wrist straight',
+    cue: 'Try to turn the palm down. Nothing moves',
+    setup: 'Elbow at your side, bent to 90, thumb up. Resist with the other hand on the forearm just above the wrist, never on the hand, or press against a doorframe',
     tempo: { type: 'hold', seconds: 30, label: 'hold' },
     rest: 30,
     note: 'One exercise for both. The elbow pronator and the muscle that steadies the wrist joint.',
+    progress: 'After two weeks at 3 or below on the elbow and 2 or below on the wrist, press at about 70 percent instead of half.',
     panels: ['pronation-isometric-1.svg', 'pronation-isometric-2.svg'],
   },
   {
@@ -66,6 +67,7 @@ export const EXERCISES = [
     tempo: { type: 'hold', seconds: 30, label: 'hold' },
     rest: 30,
     note: 'Leaning toward the thumb side spares the pinky-side tendon.',
+    progress: 'After two weeks at 3 or below on the elbow and 2 or below on the wrist, press at about 70 percent instead of half.',
     panels: ['isometric-holds-2.svg'],
   },
   {
@@ -86,18 +88,35 @@ export const EXERCISES = [
 
   // ---------------------------------------------------------------- heavy
   {
-    id: 'tyler',
-    name: 'Reverse Tyler Twist, to neutral',
+    id: 'band-ecc',
+    name: 'Open-hand band eccentric',
     group: 'heavy',
     joints: ['elbow', 'wrist'],
     painRule: 'wrist',
     sets: 3,
     dose: '3 × 15, 4 second lowering',
-    cue: 'Lower only to a straight wrist, then stop',
-    setup: 'Forearm resting on a table, thumb up, lighter bar',
+    cue: 'The other hand helps it up, then lower to a straight wrist and stop',
+    setup: 'Band under your foot and looped over the palm, fingers relaxed, no gripping. Forearm on your thigh, palm up',
     tempo: { type: 'rep', seconds: 4, reps: 15, label: '4s lower' },
     rest: 60,
-    note: 'The old version lowered on into extension, which the wrist does not like.',
+    note: 'The elbow eccentric without the grip. Gripping hard pushes the ulna into the pinky side of the wrist.',
+    progress: 'When every set stays at 3 or below and the next morning is clean twice running, go up one band.',
+    panels: ['band-eccentric-1.svg', 'band-eccentric-2.svg'],
+  },
+  {
+    id: 'tyler',
+    name: 'Reverse Tyler Twist, to neutral',
+    group: 'heavy4',
+    joints: ['elbow', 'wrist'],
+    painRule: 'wrist',
+    sets: 3,
+    dose: '3 × 15, 4 second lowering',
+    cue: 'Lower only to a straight wrist, then stop',
+    setup: 'Forearm on a folded towel, inner elbow clear of the table edge, thumb up, red FlexBar',
+    tempo: { type: 'rep', seconds: 4, reps: 15, label: '4s lower' },
+    rest: 60,
+    note: 'Back from wrist phase 4, once gripping is allowed again. Still stops at a straight wrist.',
+    progress: 'When every set stays at 3 or below and the next morning is clean twice running, move from the red bar to the green.',
     panels: [
       'reverse-tyler-twist-1.svg',
       'reverse-tyler-twist-2.svg',
@@ -151,19 +170,19 @@ export const EXERCISES = [
     setup: 'Palm on the wall at chest height, arm nearly straight, elbow soft',
     tempo: { type: 'hold', seconds: 30, label: 'hold' },
     rest: 45,
-    note: 'Phase 3. Not for dorsal impingement.',
+    note: 'Phase 3. Lean only until the wrist is well short of where it starts to pinch. Not for dorsal impingement.',
     panels: ['weight-bearing-1.svg'],
   },
   {
-    id: 'fist-pushup',
-    name: 'Incline push-up on fists',
+    id: 'wedge-pushup',
+    name: 'Incline push-up, wrist straight',
     group: 'wrist4',
     joints: ['wrist', 'elbow'],
     painRule: 'wrist',
     sets: 3,
     dose: '3 × 10',
-    cue: 'Fists keep the wrist straight',
-    setup: 'Fists on a bench or counter, body in a line, elbows soft at the top',
+    cue: 'Keep the wrist straight the whole way',
+    setup: 'Hands on a wedge or a folded towel on a bench edge so the wrist stays straight. Not on fists, which loads the pinky side',
     tempo: null,
     rest: 60,
     note: 'Phase 4.',
@@ -284,13 +303,24 @@ export function estimateMinutes(list) {
 }
 
 export const PAIN_RULES = {
-  elbow: 'Elbow. Up to 3 out of 10 is fine. 4 or 5, hold the load where it is. Above 5, stop the set. It should be settled by tomorrow morning.',
-  wrist: 'Wrist. Up to 2 out of 10, and stop for any sharp pinky-side pain, clicking or catching. This rule wins for any exercise that brings on the wrist pain.',
+  elbow: 'Elbow. Up to 3 out of 10, carry on, and that is the level to add load from. 4 counts as a hold, keep the load where it is next time. 5 or more, stop the set, skip the exercise today and go lighter next time.',
+  wrist: 'Wrist. Under 2 out of 10. At 2 or more, or any sharp wrist pain anywhere, or tingling in the ring or little finger, stop the exercise and skip it today. A painless click is fine, a painful one is a red flag.',
+  both: 'Any wrist pain at all during an exercise puts it under the wrist rule. If both joints hurt, the stricter action wins.',
 };
 
 export const PROGRAM_WEEKS = 12;
+
+/** What the app assumes about the wrist until told otherwise. */
+export const DEFAULT_PROFILE = Object.freeze({
+  wristSide: 'unknown', // 'left' | 'right' | 'unknown', unknown is treated as the same arm
+  wristDiagnosis: 'unknown',
+  wristPhase: 1,
+  wristRung: 1,
+  redFlagsCheckedOn: null, // dayKey of the last clean red-flag screen
+  redFlagHold: false, // a yes on the screen, cleared only by the user
+  wristOnset: null, // dayKey the wrist pain started, asked once
+});
 export const HEAVY_DAYS_PER_WEEK = 3;
-export const HEAVY_MIN_GAP_DAYS = 2;
 export const RED_FLAG_RECHECK_DAYS = 14;
 
 /**
@@ -298,44 +328,61 @@ export const RED_FLAG_RECHECK_DAYS = 14;
  * cap 0 means no wrist loading at all. block means no session, see a clinician.
  */
 export const DIAGNOSES = [
-  { id: 'unknown', label: 'Not examined yet', cap: 1,
+  { id: 'unknown', label: 'Not examined yet', cap: 1, maxRung: 2,
     note: 'Phase 1 only until someone has examined it. Bone marrow edema cannot be ruled out at home.' },
-  { id: 'ulnar', label: 'TFCC, impaction or ulnocarpal synovitis', cap: 4,
-    note: 'No loaded bending toward the pinky, loaded palm-down turning or hard gripping until phase 4.' },
-  { id: 'ecu', label: 'ECU tendinopathy', cap: 4, note: '' },
-  { id: 'dorsal', label: 'Dorsal impingement', cap: 2,
-    note: 'No weight through an extended wrist, so phases 1 and 2 only.' },
-  { id: 'fcu', label: 'FCU tendinopathy', cap: 4,
-    note: 'The Twist is swapped for the flexion isometric until a clinician says otherwise.' },
-  { id: 'bme', label: 'Lunate bone marrow edema', cap: 0,
-    note: 'No wrist loading at all. Follow your clinician.' },
-  { id: 'ecu-unstable', label: 'Snapping ECU', cap: 0, block: true,
+  { id: 'ulnar', label: 'TFCC, impaction or ulnocarpal synovitis', cap: 4, maxRung: 5,
+    note: 'No loaded bending toward the pinky, no turning through range under load, and no hard gripping until phase 4. The neutral pronation hold is fine, it is in the TFCC programme itself.' },
+  { id: 'ecu', label: 'ECU tendinopathy', cap: 4, maxRung: 5, note: '' },
+  { id: 'dorsal', label: 'Dorsal impingement', cap: 2, maxRung: 3,
+    note: 'No weight through an extended wrist, so phases 1 and 2 only, and no compression, mantles or palming on the wall.' },
+  { id: 'fcu', label: 'FCU tendinopathy', cap: 4, maxRung: 5,
+    note: 'No eccentric flexion until a clinician says otherwise, the isometrics carry the elbow.' },
+  { id: 'bme', label: 'Lunate bone marrow edema', cap: 0, maxRung: 0,
+    note: 'No wrist loading and no climbing. One climbing source wants at least four months off and a clear MRI first. Follow your clinician.' },
+  { id: 'ecu-unstable', label: 'Snapping ECU', cap: 0, maxRung: 0, block: true,
     note: 'Needs a clinician to reduce and immobilise it. Not managed here.' },
 ];
 export const diagnosisById = (id) => DIAGNOSES.find((d) => d.id === id) ?? DIAGNOSES[0];
 
 export const PHASE_GATES = {
-  1: 'Full pain-free range, and the isometrics stay at 2 out of 10 or less.',
-  2: '2 sets of 10 with the ball at 2 out of 10 or less, with good control.',
-  3: 'Wall weight-bearing at 2 out of 10 or less.',
-  4: 'Back to normal climbing and prehab.',
+  1: 'Move on when range matches the other wrist without pain, and the isometrics stay under 2 out of 10.',
+  2: 'Move on when 2 sets of 10 with the ball stay under 2 out of 10, with good control.',
+  3: 'Move on when wall weight-bearing stays under 2 out of 10.',
+  4: 'The last phase. Keep the prehab going.',
 };
+
+/** Highest ladder rung allowed at each wrist phase, before the diagnosis cap. */
+export const RUNG_BY_PHASE = { 1: 2, 2: 3, 3: 4, 4: 5 };
 
 export const CLIMB_RUNGS = [
   'Jugs and big holds, vertical terrain, wrist straight, low volume',
-  'Crimps and pockets on easy terrain',
+  'Open-hand crimps and pockets on easy terrain, no full crimp',
   'Pinches',
   'Compression and sidepulls',
-  'Slopers and underclings',
+  'Slopers, underclings and mantles',
 ];
 
-/** Any yes means no session until a clinician has seen it. */
+export const CLIMB_RULES = [
+  'No mantles or palming until wrist phase 4. They put full body weight through an extended wrist.',
+  'No campusing, no dynos, no hangboarding. Climb with straighter arms and hips close to the wall.',
+  'Warm up for longer than you think you need.',
+  'Wrist above 2 out of 10 on the wall, stop for the day and drop a rung next time.',
+  'Early on, two sessions a week and not on back-to-back days.',
+];
+
+/** Any yes means no rehab and no climbing until a clinician has seen it. */
 export const RED_FLAGS = [
-  'A fall or knock on the hand in the last six weeks, and the hollow at the base of the thumb is tender or swollen, or pushing the thumb along its length hurts',
-  'Tender right on the bony bump at the heel of the hand, pinky side',
-  'Numbness in the ring and little fingers that does not go away, weakness, dropping things, or the fingers curling',
+  'The wrist pain began with one specific moment, a fall, a hard catch or a pop, rather than building up',
+  'After a fall or knock, the hollow at the base of the thumb is tender or swollen, or pushing the thumb along its length hurts',
+  'Find the bony bump at the heel of the hand on the pinky side. It is tender a thumb width toward the middle of the palm from that bump',
+  'Numbness in the ring and little fingers lasting more than two days, tingling that comes on during exercise, weakness, dropping things, or the fingers curling',
   'The wrist gives way, clunks, locks or catches, or clicks painfully',
   'The elbow locks or catches, will not fully bend or straighten, or went with a pop and new weakness',
   'A hot, red, swollen joint, fever, feeling unwell, or night pain that stops you sleeping',
   'Ring and little fingers cold, pale or blue',
 ];
+
+/** Escalation clocks, in days. */
+export const WRIST_EXAM_DAYS = 28; // from wrist onset, inside the six week scapholunate window
+export const ELBOW_REVIEW_WEEKS = 13; // three months of progressive loading
+export const FLARE_STREAK_LIMIT = 3; // red mornings running before it says get seen

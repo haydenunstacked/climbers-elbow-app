@@ -36,5 +36,7 @@
     <text class="t lab" x="120" y="304" text-anchor="middle">top, knuckles lifted</text>
     <path class="acc" d="M306,166 L306,238" marker-end="url(#ar)"/>
     <text class="t accT" x="306" y="262" text-anchor="middle">lower slowly</text>
+    <text class="t cap" x="31" y="326">2. Curl the knuckles up, then lower</text>
+    <text class="t cap" x="31" y="344">back down under control.</text>
   </g>
 </svg>

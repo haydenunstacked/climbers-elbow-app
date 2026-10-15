@@ -72,9 +72,8 @@
     <path class="lead" d="M132,170 L156,174"/>
     <text class="t lab" x="128" y="168" text-anchor="end">thumb</text>
     <text class="t accT" x="104" y="304" text-anchor="middle">palm out, thumb turned out</text>
+    <text class="t cap" x="22" y="326">2. Roll the forearm the other way,</text>
+    <text class="t cap" x="22" y="344">palm out, thumb turned outward.</text>
   </g>
-  <text class="t cap" x="382" y="326">2. Roll the forearm the other way,</text>
-  <text class="t cap" x="382" y="344">palm out, thumb turned outward.</text>
-
   <text class="t dose" x="22" y="382">15 to 20 seconds each position, then a minute of cross fiber massage on the tender spot. Two or three times a day.</text>
 </svg>

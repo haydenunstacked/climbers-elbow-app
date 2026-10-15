@@ -36,5 +36,7 @@
     <text class="t lab" x="150" y="304" text-anchor="middle">wrist lowers into extension</text>
     <path class="acc" d="M300,158 L300,232" marker-end="url(#ar)"/>
     <text class="t accT" x="300" y="146" text-anchor="middle">4 seconds</text>
+    <text class="t cap" x="31" y="326">2. Lower over 4 seconds with the</text>
+    <text class="t cap" x="31" y="344">right hand only. That is the rep.</text>
   </g>
 </svg>

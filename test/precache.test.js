@@ -52,7 +52,7 @@ test('the app shell and every diagram panel are covered', () => {
     assert.ok(cached.has(must), `${must} must be precached`);
   }
   const panels = readdirSync(join(ROOT, 'diagrams')).filter((f) => f.endsWith('.svg'));
-  assert.equal(panels.length, 18);
+  assert.equal(panels.length, 26);
   for (const p of panels) assert.ok(cached.has(`diagrams/${p}`), `diagrams/${p} not precached`);
 });
 

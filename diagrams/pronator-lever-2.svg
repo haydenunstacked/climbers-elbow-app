@@ -36,5 +36,7 @@
     <path class="acc" d="M236,118 A74,74 0 0 1 258,210" marker-end="url(#ar)"/>
     <text class="t accT" x="353" y="164" text-anchor="end">5 second</text>
     <text class="t accT" x="353" y="180" text-anchor="end">lower</text>
+    <text class="t cap" x="31" y="326">2. Rotate to vertical through</text>
+    <text class="t cap" x="31" y="344">pronation, then lower slowly.</text>
   </g>
 </svg>

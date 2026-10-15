@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" width="720" height="400" role="img" aria-label="Open-hand band eccentric, two steps">
+  <style>
+    .bg{fill:#FAF7F2}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .oth{fill:#E2E7E3;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .torso{fill:#D6CDBB;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.4;stroke-linecap:round}
+    .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
+    .ghost{fill:none;stroke:#C2543D;stroke-width:2;stroke-dasharray:6 5;opacity:.8}
+    .band{stroke:#5E7266;fill:none;stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round}
+    .wall{fill:#E8E1D4;stroke:#1F2421;stroke-width:2.2}
+    .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
+    .h{font-size:22px;font-weight:700}
+    .sub{font-size:13.5px;fill:#6B6257}
+    .cap{font-size:13.5px}
+    .lab{font-size:11.5px;fill:#6B6257}
+    .accT{font-size:12.5px;font-weight:700;fill:#C2543D}
+    .dose{font-size:13px;fill:#4A443C}
+    .div{stroke:#E2D9CB;stroke-width:1.5}
+  </style>
+  <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
+  </marker>
+
+  <rect class="bg" x="0" y="0" width="720" height="400"/>
+  <text class="t h" x="22" y="32">Open-hand band eccentric</text>
+  <text class="t sub" x="22" y="54">The elbow eccentric without the grip. Band under your foot, looped over the palm, fingers relaxed.</text>
+  <line class="div" x1="362" y1="72" x2="362" y2="356"/>
+
+  <!-- PANEL 1 -->
+  <g>
+    <path class="im" d="M26,226 Q94,217 148,223 Q172,226 180,242 Q182,258 166,266 Q98,274 32,269 Q17,264 16,248 Q16,232 26,226 Z"/>
+    <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
+    <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
+    <text class="t lab" x="52" y="172">palm up</text>
+    <path class="im" d="M196,300 Q230,292 262,298 Q276,302 274,310 L196,312 Q190,306 196,300 Z"/>
+    <path class="band" d="M226,300 Q222,240 214,176"/>
+    <g class="lm" transform="translate(174,198) rotate(-48)"><path d="M0,-15 Q20,-19 40,-15 Q50,-11 50,0 Q50,11 40,15 Q20,19 0,15 Z"/><path d="M38,-13 Q60,-15 77,-10 Q84,-4 77,1 Q58,4 38,1 Z"/><path d="M38,1 Q60,3 75,7 Q81,12 74,16 Q56,18 38,13 Z"/><path d="M8,-15 Q15,-31 30,-31 Q39,-29 35,-21 Q27,-15 18,-13 Z"/></g>
+    <path class="band" d="M200,186 Q214,172 230,178"/>
+    <path class="oth" d="M236,150 Q256,140 274,148 Q284,156 278,168 Q262,176 244,170 Q232,162 236,150 Z"/>
+    <path class="ct" d="M250,148 Q254,158 250,168"/><path class="ct" d="M262,148 Q266,158 262,168"/>
+    <text class="t lab" x="290" y="150">left hand</text>
+    <text class="t lab" x="290" y="164">helps it up</text>
+    <path class="acc" d="M318,236 L318,184" marker-end="url(#ar)"/>
+    <text class="t accT" x="318" y="252" text-anchor="middle">assist up</text>
+    <text class="t lab" x="280" y="296">band under foot</text>
+    <text class="t cap" x="22" y="326">1. Fingers relaxed, the band does the</text>
+    <text class="t cap" x="22" y="344">holding. The left hand lifts it up.</text>
+  </g>
+
+  <!-- PANEL 2 -->
+  <g transform="translate(351,0)">
+    <path class="im" d="M26,226 Q94,217 148,223 Q172,226 180,242 Q182,258 166,266 Q98,274 32,269 Q17,264 16,248 Q16,232 26,226 Z"/>
+    <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
+    <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
+    <path class="im" d="M196,300 Q230,292 262,298 Q276,302 274,310 L196,312 Q190,306 196,300 Z"/>
+    <g class="ghost" transform="translate(174,198) rotate(-48)"><path d="M0,-15 Q20,-19 40,-15 Q50,-11 50,0 Q50,11 40,15 Q20,19 0,15 Z"/><path d="M38,-13 Q60,-15 77,-10 Q84,-4 77,1 Q58,4 38,1 Z"/><path d="M38,1 Q60,3 75,7 Q81,12 74,16 Q56,18 38,13 Z"/><path d="M8,-15 Q15,-31 30,-31 Q39,-29 35,-21 Q27,-15 18,-13 Z"/></g>
+    <path class="band" d="M226,300 Q222,250 214,204"/>
+    <g class="lm" transform="translate(174,198) rotate(0)"><path d="M0,-15 Q20,-19 40,-15 Q50,-11 50,0 Q50,11 40,15 Q20,19 0,15 Z"/><path d="M38,-13 Q60,-15 77,-10 Q84,-4 77,1 Q58,4 38,1 Z"/><path d="M38,1 Q60,3 75,7 Q81,12 74,16 Q56,18 38,13 Z"/><path d="M8,-15 Q15,-31 30,-31 Q39,-29 35,-21 Q27,-15 18,-13 Z"/></g>
+    <path class="acc" d="M292,140 A70,70 0 0 1 296,198" marker-end="url(#ar)"/>
+    <text class="t accT" x="300" y="130" text-anchor="middle">4 seconds</text>
+    <text class="t accT" x="250" y="232">stop at straight</text>
+    <text class="t cap" x="22" y="326">2. Lower over 4 seconds with the right</text>
+    <text class="t cap" x="22" y="344">only, to a straight wrist, then stop.</text>
+  </g>
+
+  <text class="t dose" x="22" y="382">3 × 15 on heavy days. Up one band when every set stays at 3 or below and two mornings are clean.</text>
+</svg>

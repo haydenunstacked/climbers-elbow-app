@@ -36,5 +36,7 @@
     <path class="acc" d="M294,140 L320,128" marker-end="url(#ar)"/>
     <text class="t accT" x="209" y="114" text-anchor="middle">open slowly</text>
     <text class="t lab" x="200" y="310" text-anchor="middle">spread against the band</text>
+    <text class="t cap" x="31" y="326">2. Open the hand slowly against</text>
+    <text class="t cap" x="31" y="344">the band, then release.</text>
   </g>
 </svg>

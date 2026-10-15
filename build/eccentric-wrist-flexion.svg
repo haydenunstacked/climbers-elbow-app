@@ -62,9 +62,8 @@
     <text class="t lab" x="150" y="304" text-anchor="middle">wrist lowers into extension</text>
     <path class="acc" d="M300,158 L300,232" marker-end="url(#ar)"/>
     <text class="t accT" x="300" y="146" text-anchor="middle">4 seconds</text>
+    <text class="t cap" x="31" y="326">2. Lower over 4 seconds with the</text>
+    <text class="t cap" x="31" y="344">right hand only. That is the rep.</text>
   </g>
-  <text class="t cap" x="382" y="326">2. Lower over 4 seconds with the</text>
-  <text class="t cap" x="382" y="344">right hand only. That is the rep.</text>
-
   <text class="t dose" x="22" y="382">3 sets of 15, 4 second lowering, every day. Only use this if you do not have a FlexBar.</text>
 </svg>

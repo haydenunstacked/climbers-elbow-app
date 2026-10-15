@@ -1,8 +1,13 @@
 // Screens, timers and DOM. All the impure parts live here.
 
-import { EXERCISES, byId, PAIN_RULE, PROGRAM_WEEKS } from './protocol.js';
-import { planFor, extraBlockStatus, programWeek, dayKey, restAfterSet, formatClock } from './scheduler.js';
-import { load, recordSession, isMemoryOnly } from './store.js';
+import {
+  EXERCISES, byId, PAIN_RULES, PROGRAM_WEEKS, DIAGNOSES, diagnosisById,
+  PHASE_GATES, CLIMB_RUNGS, CLIMB_RULES, RED_FLAGS,
+} from './protocol.js';
+import {
+  planFor, heavyStatus, wristTrend, programWeek, dayKey, restAfterSet, formatClock, maxRungFor,
+} from './scheduler.js';
+import { load, recordSession, recordClimb, setProfile, recordCheckin, isMemoryOnly } from './store.js';
 
 const root = document.getElementById('app');
 
@@ -59,17 +64,61 @@ function show(node) {
 
 // ---------------------------------------------------------------- today
 
+/** Everything planFor needs, read fresh from the store. */
+function planInputs(now = new Date()) {
+  const state = load(now);
+  return {
+    state,
+    profile: state.profile,
+    checkins: state.checkins,
+    lastHeavyDay: state.lastHeavyDay,
+    lastClimbDay: state.lastClimbDay,
+    heavyThisWeek: state.week.extraBlocksDone,
+    programStart: state.startDate,
+    date: now,
+  };
+}
+
 function screenToday() {
   const now = new Date();
-  const state = load(now);
-  const week = programWeek(state.startDate, dayKey(now));
-  const status = extraBlockStatus(state.week.extraBlocksDone, now);
+  const inp = planInputs(now);
+  const { state, profile } = inp;
+  const checkin = state.checkins[dayKey(now)] ?? {};
 
-  const core = planFor({ climbingToday: true });
-  const full = planFor({ climbingToday: false });
+  const gate = planFor(inp);
+  if (gate.kind === 'screen') return show(screenRedFlags());
+  if (gate.kind === 'setup') return show(screenSetup());
+  if (gate.kind === 'hold' || gate.kind === 'clinician') return show(screenHold(gate));
+
+  const week = programWeek(state.startDate, dayKey(now));
+  const status = heavyStatus(state.week.extraBlocksDone, now);
+  const yes = planFor({ ...inp, climbingToday: true });
+  const no = planFor({ ...inp, climbingToday: false });
+  const dx = diagnosisById(profile.wristDiagnosis);
+  const trend = wristTrend(state.checkins, profile, now);
 
   const dots = Array.from({ length: status.target }, (_, i) =>
     `<i class="dot${i < status.done ? ' on' : ''}"></i>`).join('');
+
+  const morning = planFor({ ...inp, climbingToday: false }).morning ?? {};
+  const word = { green: 'fine', amber: 'a bit worse', red: 'worse, flare day' };
+  const checkRow = (joint, label) => `
+    <div class="chk">
+      <span class="chkl">${label}<span class="chks ${morning[joint] ?? ''}">${morning[joint] ? word[morning[joint]] : 'not scored'}</span></span>
+      <span class="score">${Array.from({ length: 11 }, (_, n) =>
+        `<button class="sc${checkin[joint] === n ? ' on' : ''}" data-check="${joint}:${n}">${n}</button>`).join('')}</span>
+    </div>`;
+
+  const trendCard = {
+    stepback: `<div class="card warnc"><b>Wrist sore two mornings running.</b> Step back to phase ${profile.wristPhase - 1}?
+      <button class="link" data-phase="${profile.wristPhase - 1}">Step back</button></div>`,
+    seeclinician: `<div class="card warnc"><b>Wrist sore two mornings running</b> at the gentlest phase. Worth getting it seen soon.</div>`,
+    ready: `<div class="card goodc"><b>Two clean mornings.</b> Ready for phase ${profile.wristPhase + 1}? Only if the last two sessions stayed at 2 out of 10 or less.
+      <button class="link" data-phase="${profile.wristPhase + 1}">Move up</button></div>`,
+  }[trend] ?? '';
+
+  const sideTxt = { left: 'left wrist', right: 'right wrist', unknown: 'wrist, side not set' }[profile.wristSide];
+  const describe = (p) => `${p.title}. ${p.exercises.length} exercises.`;
 
   const node = el(`
     <div class="screen">
@@ -78,37 +127,59 @@ function screenToday() {
           <span class="date">${esc(fmtDate(now))}</span>
           <span class="wk">week ${week} of ${PROGRAM_WEEKS}</span>
         </div>
+        <div class="checkbox">
+          <div class="kind" style="margin-top:4px">This morning, pain out of 10</div>
+          ${checkRow('elbow', 'Elbow')}
+          ${checkRow('wrist', 'Wrist')}
+        </div>
+        ${trendCard}
         <h1 class="ask">Climbing today?</h1>
-        <button class="opt" data-go="core">
-          <span class="m">~${core.minutes} min</span>
+        <button class="opt" data-go="yes">
+          <span class="m">~${yes.minutes} min</span>
           <span class="k">YES</span>
-          <span class="d">Daily core only. Do it after you climb, not before.</span>
+          <span class="d">${yes.climbAllowed ? `${esc(describe(yes))} After you climb, not before. Hardest holds, rung ${Math.min(profile.wristRung, yes.maxRung)} of 5.` : 'Not today. See why on the next screen.'}</span>
         </button>
-        <button class="opt" data-go="full">
-          <span class="m">~${full.minutes} min</span>
+        <button class="opt" data-go="no">
+          <span class="m">~${no.minutes} min</span>
           <span class="k">NO</span>
-          <span class="d">Daily core plus the extra block.</span>
+          <span class="d">${esc(describe(no))}</span>
         </button>
         <div class="cnt">
-          <span>Extra blocks this week</span>
+          <span>Heavy days this week</span>
           <span class="dots">${dots}</span>
           <span class="n">${status.done} of ${status.target}</span>
         </div>
-        <div class="status ${status.tone}">${esc(status.message)}</div>
+        <button class="wristrow" data-settings>
+          <span>${esc(sideTxt)}, ${esc(dx.label.toLowerCase())}, phase ${Math.min(profile.wristPhase, Math.max(dx.cap, 1))}</span>
+          <span class="chev">&#8250;</span>
+        </button>
       </div>
       <div class="foot">
-        <button class="flare" data-go="flare">Elbow angry? Run a flare day instead</button>
-        ${isMemoryOnly() ? '<div class="warn">Storage is blocked, so this week’s count will not be saved.</div>' : ''}
+        <button class="flare" data-go="flare">Elbow or wrist angry? Run a flare day instead</button>
+        ${isMemoryOnly() ? '<div class="warn">Storage is blocked, so nothing will be remembered after you close the app.</div>' : ''}
       </div>
     </div>`);
 
   node.addEventListener('click', (e) => {
+    const chk = e.target.closest('[data-check]');
+    if (chk) {
+      const [joint, v] = chk.dataset.check.split(':');
+      recordCheckin({ [joint]: Number(v) }, new Date());
+      return screenToday();
+    }
+    const ph = e.target.closest('[data-phase]');
+    if (ph) { setProfile({ wristPhase: Number(ph.dataset.phase) }); return screenToday(); }
+    if (e.target.closest('[data-settings]')) return show(screenSettings());
     const btn = e.target.closest('[data-go]');
     if (!btn) return;
     unlockAudio();
     const go = btn.dataset.go;
-    const plan = go === 'flare' ? planFor({ mode: 'flare' })
-      : planFor({ climbingToday: go === 'core' });
+    // Climbing is forearm load whether or not the app allows it today, so it is
+    // recorded either way and tomorrow will not be a heavy day.
+    if (go === 'yes') recordClimb(new Date());
+    const fresh = planInputs(new Date());
+    const plan = go === 'flare' ? planFor({ ...fresh, mode: 'flare' })
+      : planFor({ ...fresh, climbingToday: go === 'yes' });
     session = { plan, index: 0, setsDone: {} };
     show(screenSession());
   });
@@ -116,17 +187,199 @@ function screenToday() {
   show(node);
 }
 
+// ---------------------------------------------------------------- safety screen
+
+function screenRedFlags() {
+  const answers = RED_FLAGS.map(() => null);
+
+  const node = el(`
+    <div class="screen">
+      <div class="scroll">
+        <div class="bar"><span class="ttl">Quick safety check</span><span class="mins">every 2 weeks</span></div>
+        <div class="sub" style="margin-top:12px">Any yes means no rehab and no climbing until a clinician has looked at it. Takes twenty seconds.</div>
+        ${RED_FLAGS.map((q, i) => `
+          <div class="rf">
+            <div class="rfq">${esc(q)}</div>
+            <div class="rfa">
+              <button class="pill" data-rf="${i}:no">No</button>
+              <button class="pill red" data-rf="${i}:yes">Yes</button>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="foot"><button class="cta" data-rfdone disabled>Answer all ${RED_FLAGS.length}</button></div>
+    </div>`);
+
+  const cta = node.querySelector('[data-rfdone]');
+  node.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-rf]');
+    if (b) {
+      const [i, v] = b.dataset.rf.split(':');
+      answers[Number(i)] = v;
+      b.parentElement.querySelectorAll('.pill').forEach((x) => x.classList.toggle('on', x === b));
+      const done = answers.every((a) => a !== null);
+      cta.disabled = !done;
+      cta.textContent = done ? 'Continue' : `Answer all ${RED_FLAGS.length}`;
+      return;
+    }
+    if (e.target.closest('[data-rfdone]') && !cta.disabled) {
+      const anyYes = answers.includes('yes');
+      setProfile({ redFlagsCheckedOn: dayKey(new Date()), redFlagHold: anyYes });
+      screenToday();
+    }
+  });
+  return node;
+}
+
+function screenHold(plan) {
+  const clinician = plan.kind === 'clinician';
+  const node = el(`
+    <div class="screen">
+      <div class="scroll">
+        <div class="done">
+          <div class="dh">${esc(plan.title)}</div>
+          <div class="ds">${esc(plan.subtitle)}</div>
+        </div>
+        <div class="note">
+          <div class="nh">What to do</div>
+          <div class="nb">No climbing and no loaded gripping until then. Book a sports physio or hand specialist and tell them about the elbow and the wrist together. If the pain started with a fall, a catch or a pop, get seen within days, ligament repairs do best early. If a fracture is possible, or the fingers are cold, numb or weak, go the same day.</div>
+        </div>
+      </div>
+      <div class="foot">
+        ${clinician
+          ? '<button class="cta" data-settings>Change the wrist diagnosis</button>'
+          : '<button class="cta alt" data-cleared>I have been seen and it is cleared</button>'}
+      </div>
+    </div>`);
+  node.addEventListener('click', (e) => {
+    if (e.target.closest('[data-settings]')) return show(screenSettings());
+    if (e.target.closest('[data-cleared]')) {
+      setProfile({ redFlagHold: false, redFlagsCheckedOn: dayKey(new Date()) });
+      screenToday();
+    }
+  });
+  return node;
+}
+
+// ---------------------------------------------------------------- first run
+
+function screenSetup() {
+  const { profile } = planInputs(new Date());
+  let side = profile.wristSide === 'unknown' ? null : profile.wristSide;
+  const node = el(`
+    <div class="screen">
+      <div class="scroll">
+        <div class="bar"><span class="ttl">Two questions about the wrist</span></div>
+        <div class="kind">Which wrist hurts</div>
+        <div class="sub">The elbow is the right. This decides which exercises are safe.</div>
+        <button class="radio${side === 'right' ? ' on' : ''}" data-side="right"><span class="rl">Right, same arm as the elbow</span></button>
+        <button class="radio${side === 'left' ? ' on' : ''}" data-side="left"><span class="rl">Left</span></button>
+        <div class="kind">When it started</div>
+        <div class="sub">Roughly is fine. It sets when the app pushes for an examination, four weeks in.</div>
+        <input class="datein" type="date" data-onset value="${profile.wristOnset ?? ''}" max="${dayKey(new Date())}">
+      </div>
+      <div class="foot"><button class="cta" data-save disabled>Continue</button></div>
+    </div>`);
+  const cta = node.querySelector('[data-save]');
+  const onset = node.querySelector('[data-onset]');
+  const ready = () => { cta.disabled = !(side && onset.value); };
+  onset.addEventListener('input', ready);
+  node.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-side]');
+    if (b) {
+      side = b.dataset.side;
+      node.querySelectorAll('[data-side]').forEach((x) => x.classList.toggle('on', x === b));
+      return ready();
+    }
+    if (e.target.closest('[data-save]') && !cta.disabled) {
+      setProfile({ wristSide: side, wristOnset: onset.value });
+      screenToday();
+    }
+  });
+  ready();
+  return node;
+}
+
+// ---------------------------------------------------------------- wrist settings
+
+function screenSettings() {
+  const { profile } = planInputs(new Date());
+  const dx = diagnosisById(profile.wristDiagnosis);
+  const radio = (key, value, label, note = '', disabled = false) => `
+    <button class="radio${profile[key] === value ? ' on' : ''}" data-set="${key}:${value}" ${disabled ? 'disabled' : ''}>
+      <span class="rl">${esc(label)}</span>${note ? `<span class="rn">${esc(note)}</span>` : ''}
+    </button>`;
+
+  const node = el(`
+    <div class="screen">
+      <div class="scroll">
+        <div class="bar">
+          <button class="back" data-back aria-label="Back">&#8249;</button>
+          <span class="ttl">Wrist settings</span>
+        </div>
+
+        <div class="kind">Which wrist</div>
+        <div class="sub">The elbow is the right.</div>
+        ${radio('wristSide', 'right', 'Right, same arm as the elbow')}
+        ${radio('wristSide', 'left', 'Left', 'The right elbow gets back its fuller loading.')}
+        <div class="kind">When it started</div>
+        <input class="datein" type="date" data-onsetset value="${profile.wristOnset ?? ''}" max="${dayKey(new Date())}">
+
+        <div class="kind">What it is</div>
+        <div class="sub">Only change this once a clinician has examined it.</div>
+        ${DIAGNOSES.map((d) => radio('wristDiagnosis', d.id, d.label, d.note)).join('')}
+
+        <div class="kind">Phase</div>
+        <div class="sub">${dx.cap === 0 ? 'No wrist loading for this diagnosis.' : `This diagnosis allows up to phase ${dx.cap}. Move on only when the gate is met.`}</div>
+        ${[1, 2, 3, 4].map((n) => radio('wristPhase', n, `Phase ${n}`, PHASE_GATES[n], n > Math.max(dx.cap, 1))).join('')}
+
+        <div class="kind">Climbing ladder</div>
+        <div class="sub">The hardest holds you use. Move up after two or three sessions with clean mornings. ${maxRungFor(profile) === 0 ? 'No climbing for this diagnosis.' : `The wrist allows up to rung ${maxRungFor(profile)} right now.`}</div>
+        ${CLIMB_RUNGS.map((r, i) => radio('wristRung', i + 1, `${i + 1}. ${r}`, '', i + 1 > maxRungFor(profile))).join('')}
+
+        <div class="kind">Support</div>
+        <div class="sub">If you wear anything, a plain compression strap that keeps the wrist neutral, the WristWidget type. Never a splint that holds the wrist bent unless a clinician fits it, the right position differs by diagnosis and some are opposites.</div>
+
+        <button class="link" data-rescreen style="margin:22px 2px 30px">Run the safety check again</button>
+      </div>
+    </div>`);
+
+  node.querySelector('[data-onsetset]')?.addEventListener('change', (e) => {
+    if (e.target.value) setProfile({ wristOnset: e.target.value });
+  });
+  node.addEventListener('click', (e) => {
+    if (e.target.closest('[data-back]')) return screenToday();
+    if (e.target.closest('[data-rescreen]')) { setProfile({ redFlagsCheckedOn: null }); return screenToday(); }
+    const b = e.target.closest('[data-set]');
+    if (!b || b.disabled) return;
+    const [key, raw] = b.dataset.set.split(':');
+    const value = ['wristPhase', 'wristRung'].includes(key) ? Number(raw) : raw;
+    const patch = { [key]: value };
+    // a diagnosis with a lower cap pulls the phase down with it
+    if (key === 'wristDiagnosis') {
+      const cap = diagnosisById(value).cap;
+      if (profile.wristPhase > Math.max(cap, 1)) patch.wristPhase = Math.max(cap, 1);
+    }
+    // the ladder can never sit above what the wrist allows
+    const next = { ...profile, ...patch };
+    if (next.wristRung > Math.max(1, maxRungFor(next))) patch.wristRung = Math.max(1, maxRungFor(next));
+    setProfile(patch);
+    show(screenSettings());
+  });
+  return node;
+}
+
 // ---------------------------------------------------------------- session list
 
 function screenSession() {
   const { plan } = session;
   let n = 0;
-  let lastBlock = null;
+  let lastGroup = null;
   const rows = plan.exercises.map((ex) => {
     n++;
     let sep = '';
-    if (ex.block === 'extra' && lastBlock !== 'extra') sep = '<div class="sep">extra block</div>';
-    lastBlock = ex.block;
+    const heavyish = ex.group !== 'light';
+    if (plan.kind === 'heavy' && heavyish && lastGroup === 'light') sep = '<div class="sep">strength work</div>';
+    lastGroup = heavyish ? 'heavy' : 'light';
     const complete = (session.setsDone[ex.id] ?? 0) >= ex.sets;
     return `${sep}
       <button class="ex${complete ? ' done' : ''}" data-i="${n - 1}">
@@ -145,9 +398,12 @@ function screenSession() {
         </div>
         <div class="kind">${esc(plan.title)}</div>
         ${plan.subtitle ? `<div class="sub">${esc(plan.subtitle)}</div>` : ''}
+        ${plan.climbRung ? `<div class="card"><b>On the wall today.</b> ${esc(plan.climbRung)}, and nothing harder.
+          <ul class="rules">${CLIMB_RULES.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>` : ''}
+        ${plan.banners.map((b) => `<div class="card warnc">${esc(b)}</div>`).join('')}
         ${rows}
       </div>
-      <div class="foot"><button class="cta" data-start>Start</button></div>
+      <div class="foot"><button class="cta" data-start ${plan.exercises.length ? '' : 'disabled'}>Start</button></div>
     </div>`);
 
   node.addEventListener('click', (e) => {
@@ -200,11 +456,15 @@ function screenExercise(overrideEx = null, resting = 0) {
         </div>
         <div class="swipe" data-swipe>${panels}</div>
         ${pdots}
+        ${ex.setup ? `<div class="setup">${esc(ex.setup)}</div>` : ''}
         <div class="dose">${esc(ex.dose)}</div>
         <div class="cue">${esc(ex.cue)}</div>
+        ${ex.progress ? `<div class="exnote"><b>Progress.</b> ${esc(ex.progress)}</div>` : ''}
+        <div class="rule ${ex.painRule}">${ex.painRule === 'wrist' ? 'Wrist rule. Under 2 out of 10' : 'Elbow rule. Up to 3 fine, hold at 4, stop at 5'}</div>
         ${ex.note ? `<div class="exnote">${esc(ex.note)}</div>` : ''}
         ${ex.altId && !overrideEx ? `<button class="altlink" data-alt>${esc(ex.altLabel)} Use the ${esc(byId(ex.altId).name.toLowerCase())} instead.</button>` : ''}
         ${overrideEx ? `<button class="altlink" data-unalt>Back to the ${esc(plan.exercises[session.index].name)}</button>` : ''}
+        <button class="altlink hurt" data-hurt>Pain past the rule, or tingling in the fingers</button>
       </div>
       <div class="foot">
         ${resting > 0 ? `
@@ -243,6 +503,14 @@ function screenExercise(overrideEx = null, resting = 0) {
     if (e.target.closest('[data-alt]')) { stopTimer(); return show(screenExercise(byId(ex.altId))); }
     if (e.target.closest('[data-unalt]')) { stopTimer(); return show(screenExercise()); }
     if (e.target.closest('[data-skip]')) { stopTimer(); stopRest(); return advance(); }
+    if (e.target.closest('[data-hurt]')) {
+      stopTimer(); stopRest();
+      const msg = ex.painRule === 'wrist'
+        ? 'Stopped and skipped for today. Score the wrist honestly tomorrow morning. If it was tingling in the ring or little finger, book the assessment.'
+        : 'Stopped and skipped for today. Go lighter on this one next time. If it was tingling in the ring or little finger, book the assessment.';
+      session.notes = [...(session.notes ?? []), `${ex.name}. ${msg}`];
+      return advance();
+    }
     if (e.target.closest('[data-restskip]')) { stopRest(); return show(screenExercise(overrideEx, 0)); }
     if (e.target.closest('[data-setdone]')) {
       stopTimer();
@@ -409,8 +677,9 @@ function wireTimer(node, ex) {
 function screenDone() {
   const now = new Date();
   const state = load(now);
-  const status = extraBlockStatus(state.week.extraBlocksDone, now);
+  const status = heavyStatus(state.week.extraBlocksDone, now);
   const { plan } = session;
+  const notes = session.notes ?? [];
 
   const dots = Array.from({ length: status.target }, (_, i) =>
     `<i class="dot${i < status.done ? ' on' : ''}"></i>`).join('');
@@ -428,14 +697,18 @@ function screenDone() {
           <div class="ds">${esc(plan.title)}, ${plan.exercises.length} exercises</div>
         </div>
         <div class="cnt" style="margin-top:26px;border-bottom:1px solid var(--line)">
-          <span>Extra blocks this week</span>
+          <span>Heavy days this week</span>
           <span class="dots">${dots}</span>
           <span class="n">${status.done} of ${status.target}</span>
         </div>
         <div class="status ${status.tone}" style="padding-top:10px">${esc(status.message)}</div>
+        ${notes.map((n) => `<div class="card warnc">${esc(n)}</div>`).join('')}
         <div class="note">
-          <div class="nh">The pain rule</div>
-          <div class="nb">${esc(PAIN_RULE)}</div>
+          <div class="nh">The pain rules</div>
+          <div class="nb">${esc(PAIN_RULES.elbow)}</div>
+          <div class="nb" style="margin-top:8px">${esc(PAIN_RULES.wrist)}</div>
+          <div class="nb" style="margin-top:8px">${esc(PAIN_RULES.both)}</div>
+          <div class="nb" style="margin-top:8px">Tomorrow morning, score both joints on the Today screen. That is what decides the next session.</div>
         </div>
       </div>
       <div class="foot"><button class="cta" data-close>Close</button></div>

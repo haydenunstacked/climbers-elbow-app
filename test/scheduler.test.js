@@ -1,15 +1,17 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { EXERCISES, DIAGNOSES, byId } from '../js/protocol.js';
+import { EXERCISES, DIAGNOSES, byId, RUNG_BY_PHASE } from '../js/protocol.js';
 
 import {
   dayKey, isoWeek, daysBetween, programWeek, daysLeftInWeek,
   planFor, wristTrend, heavyStatus, restAfterSet, formatClock,
+  morningStatus, creepingUp, flareStreak, maxRungFor,
 } from '../js/scheduler.js';
 
 const THU = new Date(2026, 9, 15);
-const OK = { redFlagsCheckedOn: '2026-10-14' }; // a clean screen yesterday
+const OK = { redFlagsCheckedOn: '2026-10-14', wristSide: 'right', wristOnset: '2026-10-10' };
 const ids = (plan) => plan.exercises.map((e) => e.id);
+const scores = (o) => o; // readability for check-in fixtures
 
 test('dayKey uses local time, not UTC', () => {
   // 23:30 local on the 6th must stay the 6th, even though UTC has rolled over.
@@ -55,19 +57,26 @@ test('daysLeftInWeek counts today through Sunday', () => {
 
 // ---------------------------------------------------------------- gates
 
-test('no red-flag screen yet means the screen comes first', () => {
+test('no safety check yet means the check comes first', () => {
   assert.equal(planFor({ date: THU }).kind, 'screen');
 });
 
-test('the screen comes back after 14 days', () => {
-  assert.equal(planFor({ profile: { redFlagsCheckedOn: '2026-10-01' }, date: THU }).kind, 'screen');
-  assert.notEqual(planFor({ profile: { redFlagsCheckedOn: '2026-10-02' }, date: THU }).kind, 'screen');
+test('the safety check comes back after 14 days', () => {
+  assert.equal(planFor({ profile: { ...OK, redFlagsCheckedOn: '2026-10-01' }, date: THU }).kind, 'screen');
+  assert.notEqual(planFor({ profile: { ...OK, redFlagsCheckedOn: '2026-10-02' }, date: THU }).kind, 'screen');
 });
 
-test('a yes on the screen holds everything, with no exercises', () => {
-  const p = planFor({ profile: { ...OK, redFlagHold: true }, date: THU });
+test('a red flag stops rehab and climbing', () => {
+  const p = planFor({ climbingToday: true, profile: { ...OK, redFlagHold: true }, date: THU });
   assert.equal(p.kind, 'hold');
   assert.equal(p.exercises.length, 0);
+  assert.equal(p.climbAllowed, false);
+  assert.match(p.subtitle, /no climbing/);
+});
+
+test('which wrist and when it started are asked before any session', () => {
+  assert.equal(planFor({ profile: { ...OK, wristSide: 'unknown' }, date: THU }).kind, 'setup');
+  assert.equal(planFor({ profile: { ...OK, wristOnset: null }, date: THU }).kind, 'setup');
 });
 
 test('a snapping ECU is sent to a clinician, never given exercise', () => {
@@ -76,24 +85,56 @@ test('a snapping ECU is sent to a clinician, never given exercise', () => {
   assert.equal(p.exercises.length, 0);
 });
 
+// ---------------------------------------------------------------- morning scores
+
+test('morning status reads absolute scores and the change from yesterday', () => {
+  const c = (w, e, yw, ye) => ({ '2026-10-15': { wrist: w, elbow: e }, '2026-10-14': { wrist: yw, elbow: ye } });
+  assert.equal(morningStatus(c(1, 2, 1, 2), 'wrist', THU), 'green');
+  assert.equal(morningStatus(c(2, 2, 1, 2), 'wrist', THU), 'amber');
+  assert.equal(morningStatus(c(3, 2, 3, 2), 'wrist', THU), 'red', 'wrist 3 is red even if unchanged');
+  assert.equal(morningStatus(c(0, 4, 0, 4), 'elbow', THU), 'amber', 'elbow 4 holds');
+  assert.equal(morningStatus(c(0, 6, 0, 6), 'elbow', THU), 'red');
+  assert.equal(morningStatus(c(0, 3, 0, 1), 'elbow', THU), 'red', 'up two is red');
+  assert.equal(morningStatus({}, 'wrist', THU), null);
+});
+
+test('a slow creep shows up as creeping, even when each day reads as same', () => {
+  const c = {};
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(THU); d.setDate(d.getDate() - i);
+    c[dayKey(d)] = { elbow: i < 7 ? 3 : 1, wrist: 0 };
+  }
+  assert.equal(creepingUp(c, 'elbow', THU), true);
+  assert.equal(creepingUp(c, 'wrist', THU), false);
+});
+
+test('three red mornings running count as a streak', () => {
+  const c = { '2026-10-15': { wrist: 4 }, '2026-10-14': { wrist: 4 }, '2026-10-13': { elbow: 7 }, '2026-10-12': { wrist: 0 } };
+  assert.equal(flareStreak(c, THU), 3);
+});
+
 // ---------------------------------------------------------------- day choice
 
-test('a climbing day is always a light day, with the ladder rung', () => {
+test('a climbing day is a light day with the ladder rung', () => {
   const p = planFor({ climbingToday: true, profile: OK, date: THU });
   assert.equal(p.kind, 'light');
   assert.equal(p.countsAsHeavy, false);
   assert.match(p.climbRung, /^Jugs/);
-  assert.match(p.subtitle, /After you climb/);
 });
 
-test('a rest day is heavy when the gap and the weekly count allow', () => {
+test('a rest day is heavy when nothing loaded yesterday', () => {
   const p = planFor({ profile: OK, lastHeavyDay: '2026-10-13', heavyThisWeek: 1, date: THU });
   assert.equal(p.kind, 'heavy');
-  assert.ok(ids(p).includes('tyler'));
+  assert.ok(ids(p).includes('band-ecc'));
 });
 
-test('heavy yesterday means light today', () => {
+test('no heavy day the day after a heavy day or a climbing day', () => {
   assert.equal(planFor({ profile: OK, lastHeavyDay: '2026-10-14', date: THU }).kind, 'light');
+  assert.equal(planFor({ profile: OK, lastClimbDay: '2026-10-14', date: THU }).kind, 'light');
+});
+
+test('a second heavy session on the same day is not offered', () => {
+  assert.equal(planFor({ profile: OK, lastHeavyDay: '2026-10-15', date: THU }).kind, 'light');
 });
 
 test('three heavy days this week means light', () => {
@@ -101,120 +142,168 @@ test('three heavy days this week means light', () => {
 });
 
 test('a bit worse on either joint blocks heavy work', () => {
-  for (const checkin of [{ wrist: 'amber' }, { elbow: 'amber' }]) {
-    assert.equal(planFor({ profile: OK, checkin, date: THU }).kind, 'light');
+  for (const [c, y] of [[{ wrist: 1 }, { wrist: 0 }], [{ elbow: 4 }, { elbow: 4 }]]) {
+    const checkins = { '2026-10-15': c, '2026-10-14': y };
+    assert.equal(planFor({ profile: OK, checkins, date: THU }).kind, 'light');
   }
 });
 
-test('worse on either joint means a flare day', () => {
-  for (const checkin of [{ wrist: 'red' }, { elbow: 'red' }]) {
-    assert.equal(planFor({ profile: OK, checkin, date: THU }).kind, 'flare');
+test('worse on either joint means a flare day and no climbing', () => {
+  for (const c of [{ wrist: 3 }, { elbow: 6 }]) {
+    const p = planFor({ climbingToday: true, profile: OK, checkins: { '2026-10-15': c }, date: THU });
+    assert.equal(p.kind, 'flare');
+    assert.equal(p.climbAllowed, false);
+    assert.equal(p.climbRung, null);
   }
 });
 
-test('a flare day with the wrist worse drops even the range of motion work', () => {
-  assert.ok(!ids(planFor({ profile: OK, checkin: { wrist: 'red' }, date: THU })).includes('dtm'));
-  assert.ok(ids(planFor({ profile: OK, checkin: { elbow: 'red' }, date: THU })).includes('dtm'));
+test('a flare day with the wrist worse drops even the range work', () => {
+  assert.ok(!ids(planFor({ profile: OK, checkins: { '2026-10-15': { wrist: 4 } }, date: THU })).includes('dtm'));
+  assert.ok(ids(planFor({ profile: OK, checkins: { '2026-10-15': { elbow: 7 } }, date: THU })).includes('dtm'));
 });
 
-// ---------------------------------------------------------------- the light day
+// ---------------------------------------------------------------- climbing ceiling
+
+test('an unexamined wrist climbs no harder than open-hand crimps', () => {
+  assert.equal(maxRungFor(OK), 2);
+  const p = planFor({ climbingToday: true, profile: { ...OK, wristRung: 5 }, date: THU });
+  assert.match(p.climbRung, /^Open-hand crimps/);
+});
+
+test('the climbing ceiling rises with the wrist phase', () => {
+  for (const ph of [1, 2, 3, 4]) {
+    assert.equal(maxRungFor({ ...OK, wristDiagnosis: 'ulnar', wristPhase: ph }), RUNG_BY_PHASE[ph]);
+  }
+});
+
+test('lunate edema means no climbing at all', () => {
+  const p = planFor({ climbingToday: true, profile: { ...OK, wristDiagnosis: 'bme' }, date: THU });
+  assert.equal(p.climbAllowed, false);
+  assert.equal(p.climbRung, null);
+});
+
+test('dorsal impingement never reaches compression or mantles', () => {
+  assert.ok(maxRungFor({ ...OK, wristDiagnosis: 'dorsal', wristPhase: 4 }) <= 3);
+});
+
+// ---------------------------------------------------------------- exercises
 
 test('the light day is the neutral floor for both joints', () => {
   assert.deepEqual(ids(planFor({ climbingToday: true, profile: OK, date: THU })),
     ['dtm', 'pron-iso', 'flex-iso', 'extensors']);
 });
 
-// ---------------------------------------------------------------- diagnosis and phase
+test('no gripped eccentric for the same arm until wrist phase 4', () => {
+  for (const ph of [1, 2, 3]) {
+    const got = ids(planFor({ profile: { ...OK, wristDiagnosis: 'ulnar', wristPhase: ph }, date: THU }));
+    assert.ok(got.includes('band-ecc') && !got.includes('tyler'), `phase ${ph}`);
+  }
+  assert.ok(ids(planFor({ profile: { ...OK, wristDiagnosis: 'ulnar', wristPhase: 4 }, date: THU })).includes('tyler'));
+});
+
+test('a diagnosed TFCC unlocks the phases in order, replacing not stacking', () => {
+  const at = (n) => ids(planFor({ profile: { ...OK, wristDiagnosis: 'ulnar', wristPhase: n }, date: THU }));
+  assert.ok(!at(1).includes('dtm-ball'));
+  assert.ok(at(2).includes('dtm-ball') && !at(2).includes('wall-wb'));
+  assert.ok(at(3).includes('wall-wb') && !at(3).includes('wedge-pushup'));
+  assert.ok(at(4).includes('wedge-pushup') && !at(4).includes('dtm-ball') && !at(4).includes('wall-wb'));
+});
 
 test('an unexamined wrist is capped at phase 1 whatever the stored phase says', () => {
   const p = planFor({ profile: { ...OK, wristPhase: 4 }, date: THU });
   assert.equal(p.wristPhase, 1);
-  for (const id of ['dtm-ball', 'wall-wb', 'fist-pushup']) assert.ok(!ids(p).includes(id), id);
+  for (const id of ['dtm-ball', 'wall-wb', 'wedge-pushup', 'tyler']) assert.ok(!ids(p).includes(id), id);
 });
 
-test('a diagnosed TFCC unlocks the phases in order on heavy days', () => {
-  const at = (n) => ids(planFor({ profile: { ...OK, wristDiagnosis: 'ulnar', wristPhase: n }, date: THU }));
-  assert.ok(!at(1).includes('dtm-ball'));
-  assert.ok(at(2).includes('dtm-ball') && !at(2).includes('wall-wb'));
-  assert.ok(at(3).includes('wall-wb') && !at(3).includes('fist-pushup'));
-  assert.ok(at(4).includes('fist-pushup'));
-  assert.ok(!at(4).includes('dtm-ball') && !at(4).includes('wall-wb'), 'phase 4 replaces, it does not stack');
+test('FCU gets no eccentric flexion at all', () => {
+  const got = ids(planFor({ profile: { ...OK, wristDiagnosis: 'fcu', wristPhase: 4 }, date: THU }));
+  for (const id of ['band-ecc', 'tyler', 'tyler-full']) assert.ok(!got.includes(id), id);
 });
 
-test('dorsal impingement never gets weight through the hand', () => {
-  const p = planFor({ profile: { ...OK, wristDiagnosis: 'dorsal', wristPhase: 4 }, date: THU });
-  assert.ok(!ids(p).includes('wall-wb') && !ids(p).includes('fist-pushup'));
-});
-
-test('FCU never gets the Twist', () => {
-  const p = planFor({ profile: { ...OK, wristDiagnosis: 'fcu' }, date: THU });
-  assert.equal(p.kind, 'heavy');
-  assert.ok(!ids(p).includes('tyler'));
-});
-
-test('bone marrow edema gets nothing that loads the wrist', () => {
-  for (const climbingToday of [true, false]) {
-    const p = planFor({ climbingToday, profile: { ...OK, wristDiagnosis: 'bme' }, date: THU });
-    for (const e of p.exercises) assert.ok(!e.joints.includes('wrist'), e.id);
-  }
-});
-
-test('a sore left wrist gives the right elbow its original loading', () => {
+test('a sore left wrist gives the right elbow its fuller loading, without the FlexBar', () => {
   const p = planFor({ profile: { ...OK, wristSide: 'left' }, date: THU });
-  assert.ok(ids(p).includes('tyler-full'));
-  assert.ok(ids(p).includes('pronator'));
-  assert.ok(!ids(p).includes('tyler'), 'not the FlexBar, it wrings the left wrist');
+  const got = ids(p);
+  assert.ok(got.includes('tyler-full') && got.includes('pronator'));
+  assert.ok(!got.includes('tyler'), 'the FlexBar Twist wrings with the left hand');
+  assert.ok(p.banners.some((b) => /doorframe/.test(b)));
+});
+
+// ---------------------------------------------------------------- escalation
+
+test('the wrist exam banner hardens at four weeks from onset', () => {
+  const early = planFor({ profile: { ...OK, wristOnset: '2026-10-01' }, date: THU });
+  const late = planFor({ profile: { ...OK, wristOnset: '2026-09-17' }, date: THU });
+  assert.ok(early.banners.some((b) => /Book one visit/.test(b)));
+  assert.ok(late.banners.some((b) => /Book it this week/.test(b)));
+});
+
+test('three months of elbow loading prompts a review', () => {
+  const p = planFor({ profile: { ...OK, redFlagsCheckedOn: '2026-11-05' }, programStart: '2026-08-06', date: new Date(2026, 10, 6) });
+  assert.ok(p.banners.some((b) => /Three months/.test(b)));
 });
 
 // ---------------------------------------------------------------- the safety sweep
 
 test('safety rules hold across every combination', () => {
-  const sides = ['unknown', 'right', 'left'];
-  const checks = [{}, { wrist: 'green', elbow: 'green' }, { wrist: 'amber' }, { elbow: 'amber' }, { wrist: 'red' }, { elbow: 'red' }];
+  const sides = ['right', 'left'];
+  const mornings = [{}, { wrist: 0, elbow: 0 }, { wrist: 1, elbow: 0 }, { wrist: 0, elbow: 4 }, { wrist: 3, elbow: 0 }, { wrist: 0, elbow: 6 }];
   let n = 0;
   for (const dx of DIAGNOSES) for (const phase of [1, 2, 3, 4]) for (const side of sides)
-  for (const climbingToday of [true, false]) for (const checkin of checks) for (const heavy of [0, 3]) {
-    const profile = { ...OK, wristDiagnosis: dx.id, wristPhase: phase, wristSide: side };
-    const p = planFor({ climbingToday, profile, checkin, heavyThisWeek: heavy, date: THU });
+  for (const climbingToday of [true, false]) for (const m of mornings) for (const heavy of [0, 3])
+  for (const yesterday of [null, 'heavy', 'climb']) for (const rung of [1, 5]) {
+    const profile = { ...OK, wristDiagnosis: dx.id, wristPhase: phase, wristSide: side, wristRung: rung };
+    const checkins = { '2026-10-15': m, '2026-10-14': { wrist: 0, elbow: 0 } };
+    const p = planFor({
+      climbingToday, profile, checkins, heavyThisWeek: heavy, date: THU,
+      lastHeavyDay: yesterday === 'heavy' ? '2026-10-14' : null,
+      lastClimbDay: yesterday === 'climb' ? '2026-10-14' : null,
+    });
     const got = ids(p);
-    const tag = `${dx.id}/p${phase}/${side}/${climbingToday ? 'climb' : 'rest'}/${JSON.stringify(checkin)}/h${heavy}`;
+    const tag = `${dx.id}/p${phase}/${side}/${climbingToday ? 'climb' : 'rest'}/${JSON.stringify(m)}/h${heavy}/${yesterday}/r${rung}`;
     n++;
-    if (dx.block) { assert.equal(got.length, 0, tag); continue; }
+    if (dx.block) { assert.equal(got.length, 0, tag); assert.equal(p.climbAllowed, false, tag); continue; }
+    const red = p.morning.wrist === 'red' || p.morning.elbow === 'red';
+    const amber = p.morning.wrist === 'amber' || p.morning.elbow === 'amber';
+
     // the pre-wrist programme only ever runs when the wrist is on the other arm
-    if (side !== 'left') for (const e of p.exercises) assert.notEqual(e.group, 'original', tag);
+    if (side === 'right') for (const e of p.exercises) assert.notEqual(e.group, 'original', tag);
     // nothing past the diagnosis cap
     if (dx.cap < 2) assert.ok(!got.includes('dtm-ball'), tag);
     if (dx.cap < 3) assert.ok(!got.includes('wall-wb'), tag);
-    if (dx.cap < 4) assert.ok(!got.includes('fist-pushup'), tag);
+    if (dx.cap < 4) assert.ok(!got.includes('wedge-pushup'), tag);
     if (dx.cap === 0) for (const e of p.exercises) assert.ok(!e.joints.includes('wrist'), tag);
-    // heavy work only on a clean, non-climbing day
-    if (climbingToday || checkin.wrist === 'amber' || checkin.elbow === 'amber' || heavy >= 3) {
-      assert.equal(p.countsAsHeavy, false, tag);
+    // gripping: no gripped eccentric on the sore arm before phase 4
+    if (side === 'right' && Math.min(phase, dx.cap) < 4) assert.ok(!got.includes('tyler'), tag);
+    // the FlexBar never runs when it would wring the sore left wrist
+    if (side === 'left') assert.ok(!got.includes('tyler'), tag);
+    // heavy work only when nothing loaded yesterday and the morning was clean
+    if (climbingToday || amber || red || heavy >= 3 || yesterday) assert.equal(p.countsAsHeavy, false, tag);
+    // climbing never on a red morning, never past the ceiling
+    if (red) { assert.equal(p.kind, 'flare', tag); assert.equal(p.climbAllowed, false, tag); }
+    if (p.climbRung) {
+      const idx = p.maxRung;
+      assert.ok(idx >= 1 && idx <= Math.min(RUNG_BY_PHASE[Math.max(1, Math.min(phase, Math.max(dx.cap, 1)))], dx.maxRung), tag);
     }
-    if (checkin.wrist === 'red' || checkin.elbow === 'red') {
-      assert.equal(p.kind, 'flare', tag);
-      for (const e of p.exercises) assert.ok(['light'].includes(e.group), tag);
-    }
-    if (dx.id === 'fcu') assert.ok(!got.includes('tyler'), tag);
-    // anything that loads the wrist follows the wrist pain rule
-    if (side !== 'left') for (const e of p.exercises) if (e.joints.includes('wrist')) assert.equal(e.painRule, 'wrist', tag);
-    // no duplicates and a sane length
+    if (dx.id === 'bme') assert.equal(p.climbAllowed, false, tag);
+    if (dx.id === 'fcu') for (const id of ['band-ecc', 'tyler', 'tyler-full']) assert.ok(!got.includes(id), tag);
+    // anything that loads the wrist follows the wrist rule
+    if (side === 'right') for (const e of p.exercises) if (e.joints.includes('wrist')) assert.equal(e.painRule, 'wrist', tag);
     assert.equal(new Set(got).size, got.length, tag);
     assert.ok(p.minutes <= 30, `${tag} ran ${p.minutes} min`);
   }
-  assert.ok(n > 1000, `only ${n} combinations checked`);
+  assert.ok(n >= 8000, `only ${n} combinations checked`);
 });
 
 // ---------------------------------------------------------------- trend and status
 
-test('two sore mornings suggest stepping back, or a clinician at phase 1', () => {
-  const c = { '2026-10-14': { wrist: 'amber' }, '2026-10-15': { wrist: 'red' } };
+test('two sore wrist mornings suggest stepping back, or a clinician at phase 1', () => {
+  const c = { '2026-10-13': { wrist: 0 }, '2026-10-14': { wrist: 1 }, '2026-10-15': { wrist: 3 } };
   assert.equal(wristTrend(c, { wristPhase: 2, wristDiagnosis: 'ulnar' }, THU), 'stepback');
   assert.equal(wristTrend(c, { wristPhase: 1 }, THU), 'seeclinician');
 });
 
 test('two clean mornings suggest moving up only below the cap', () => {
-  const c = { '2026-10-14': { wrist: 'green' }, '2026-10-15': { wrist: 'green' } };
+  const c = { '2026-10-14': { wrist: 0 }, '2026-10-15': { wrist: 0 } };
   assert.equal(wristTrend(c, { wristPhase: 1, wristDiagnosis: 'ulnar' }, THU), 'ready');
   assert.equal(wristTrend(c, { wristPhase: 1, wristDiagnosis: 'unknown' }, THU), null);
   assert.equal(wristTrend({}, {}, THU), null);

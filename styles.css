@@ -252,3 +252,78 @@ body {
 }
 .rest .track { background: var(--shade); }
 .rest .fill { background: var(--sage); }
+
+/* ---------- combined app, morning check and cards ---------- */
+
+.checkbox { padding: 6px 2px 10px; border-bottom: 1px solid var(--line); }
+.chk { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+.chkl { width: 54px; flex: none; font-size: 14.5px; font-weight: 700; }
+.chko { display: flex; gap: 6px; flex: 1; }
+.pill {
+  flex: 1; font: inherit; font-size: 12.5px; font-weight: 650; color: var(--muted);
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 12px;
+  padding: 9px 4px; cursor: pointer; line-height: 1.2;
+}
+.pill.on { color: var(--onInk); border-color: transparent; }
+.pill.green.on { background: var(--sage); }
+.pill.amber.on { background: #B98A2E; }
+.pill.red.on { background: var(--accent); }
+.rfa .pill.on:not(.red) { background: var(--sage); color: var(--onInk); }
+
+.card {
+  font-size: 13.5px; line-height: 1.5; color: var(--ink); background: var(--card);
+  border: 1.5px solid var(--line); border-radius: 14px; padding: 11px 13px; margin: 10px 0 0;
+}
+.card.warnc { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.card.goodc { border-color: color-mix(in srgb, var(--sage) 60%, var(--line)); }
+.link {
+  background: none; border: none; font: inherit; font-size: 13.5px; font-weight: 700;
+  color: var(--accent); text-decoration: underline; cursor: pointer; padding: 0 0 0 4px;
+}
+
+.wristrow {
+  display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 10px;
+  background: none; border: none; border-top: 1px solid var(--line); font: inherit;
+  font-size: 13.5px; color: var(--muted); text-align: left; padding: 14px 4px; cursor: pointer;
+}
+.chev { font-size: 22px; line-height: 1; }
+
+.rf { padding: 13px 2px; border-bottom: 1px solid var(--line); }
+.rfq { font-size: 14px; line-height: 1.45; }
+.rfa { display: flex; gap: 8px; margin-top: 9px; max-width: 220px; }
+
+.radio {
+  display: block; width: 100%; text-align: left; background: var(--card); font: inherit; color: inherit;
+  border: 1.5px solid var(--line); border-radius: 13px; padding: 11px 13px; margin: 7px 0 0; cursor: pointer;
+}
+.radio.on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.radio[disabled] { opacity: .38; cursor: default; }
+.rl { display: block; font-size: 14.5px; font-weight: 650; }
+.rn { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+.setup { font-size: 13.5px; color: var(--ink); background: var(--shade); border-radius: 10px; padding: 8px 11px; margin: 14px 2px 0; }
+.rule { display: inline-block; font-size: 11.5px; font-weight: 750; letter-spacing: .3px; border-radius: 8px; padding: 4px 9px; margin: 9px 2px 0; }
+.rule.wrist { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.rule.elbow { color: var(--sage); background: color-mix(in srgb, var(--sage) 14%, transparent); }
+.altlink.hurt { color: var(--accent); display: block; }
+
+/* ---------- morning score and first run ---------- */
+
+.chk { flex-direction: column; align-items: stretch; gap: 6px; }
+.chkl { width: auto; display: flex; justify-content: space-between; align-items: baseline; }
+.chks { font-size: 12px; font-weight: 650; color: var(--muted); }
+.chks.amber { color: #B98A2E; }
+.chks.red { color: var(--accent); }
+.chks.green { color: var(--sage); }
+.score { display: grid; grid-template-columns: repeat(11, 1fr); gap: 4px; }
+.sc {
+  font: inherit; font-size: 13px; font-weight: 650; color: var(--muted); background: var(--card);
+  border: 1.5px solid var(--line); border-radius: 9px; padding: 8px 0; cursor: pointer;
+}
+.sc.on { background: var(--ink); color: var(--onInk); border-color: var(--ink); }
+.datein {
+  display: block; width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--card);
+  border: 1.5px solid var(--line); border-radius: 13px; padding: 11px 13px; margin-top: 8px;
+}
+.rules { margin: 8px 0 0 18px; font-size: 13px; color: var(--muted); }
+.rules li { margin-top: 3px; }

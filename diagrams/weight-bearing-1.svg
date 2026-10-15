@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 74 351 286" role="img" aria-label="weight-bearing step 1">
+  <style>
+    .bg{fill:#FAF7F2}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .oth{fill:#E2E7E3;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .torso{fill:#D6CDBB;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.4;stroke-linecap:round}
+    .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
+    .ghost{fill:none;stroke:#C2543D;stroke-width:2;stroke-dasharray:6 5;opacity:.8}
+    .wall{fill:#E8E1D4;stroke:#1F2421;stroke-width:2.2}
+    .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
+    .h{font-size:22px;font-weight:700}
+    .sub{font-size:13.5px;fill:#6B6257}
+    .cap{font-size:13.5px}
+    .lab{font-size:11.5px;fill:#6B6257}
+    .accT{font-size:12.5px;font-weight:700;fill:#C2543D}
+    .dose{font-size:13px;fill:#4A443C}
+    .div{stroke:#E2D9CB;stroke-width:1.5}
+  </style>
+  <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
+  </marker>
+  <rect x="15" y="74" width="351" height="286" fill="#FAF7F2"/>
+  <g>
+    <rect class="wall" x="286" y="80" width="22" height="226"/>
+    <text class="t lab" x="297" y="320" text-anchor="middle">wall</text>
+    <circle class="lm" cx="126" cy="106" r="22"/>
+    <path class="torso" d="M108,134 Q132,128 150,138 Q160,146 160,166 Q160,212 152,248 Q146,266 128,268 Q110,268 102,256 Q94,240 94,212 Q94,166 98,148 Q100,136 108,134 Z" transform="rotate(10 128 200)"/>
+    <path class="lm" d="M104,256 Q118,254 120,264 L112,300 Q104,304 98,298 Z"/><path class="lm" d="M132,258 Q146,256 150,266 L156,300 Q150,306 142,300 Z"/>
+    <path class="lm" d="M146,148 Q200,146 256,160 Q272,166 270,178 Q266,190 252,188 Q198,178 146,174 Q136,170 136,160 Q137,149 146,148 Z"/>
+    <path class="lm" d="M262,152 Q278,146 286,152 L286,196 Q278,202 266,198 Q256,192 256,176 Q256,160 262,152 Z"/>
+    <path class="lead" d="M232,226 L268,196"/>
+    <text class="t lab" x="180" y="238">palm flat, wrist short</text>
+    <text class="t lab" x="180" y="252">of full extension</text>
+    <text class="t accT" x="166" y="104">3 × 30 seconds, phase 3</text>
+    <text class="t cap" x="22" y="326">1. Lean gently into a palm on the</text>
+    <text class="t cap" x="22" y="344">wall at chest height. Elbow soft.</text>
+  </g>
+</svg>

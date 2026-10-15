@@ -3,7 +3,7 @@
 // PRECACHE is checked against the filesystem by test/precache.test.js, so adding
 // a file without listing it here fails the build.
 
-const VERSION = 'dd1571c0ea';
+const VERSION = '44a1b6fbe7';
 const CACHE = `climbers-elbow-${VERSION}`;
 
 const PRECACHE = [
@@ -18,6 +18,14 @@ const PRECACHE = [
   'icons/icon-180.png',
   'icons/icon-192.png',
   'icons/icon-512.png',
+  'diagrams/band-eccentric-1.svg',
+  'diagrams/band-eccentric-2.svg',
+  'diagrams/dart-throw-1.svg',
+  'diagrams/dart-throw-2.svg',
+  'diagrams/pronation-isometric-1.svg',
+  'diagrams/pronation-isometric-2.svg',
+  'diagrams/weight-bearing-1.svg',
+  'diagrams/weight-bearing-2.svg',
   'diagrams/eccentric-wrist-flexion-1.svg',
   'diagrams/eccentric-wrist-flexion-2.svg',
   'diagrams/finger-extensor-band-1.svg',

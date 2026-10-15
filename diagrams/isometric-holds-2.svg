@@ -36,5 +36,8 @@
     <path class="acc" d="M252,140 L252,166" marker-end="url(#ar)"/>
     <path class="acc" d="M252,214 L252,188" marker-end="url(#ar)"/>
     <text class="t lab" x="328" y="248" text-anchor="end">right hand presses up</text>
+    <text class="t accT" x="4" y="284">45 seconds at about 70 percent, 5 reps</text>
+    <text class="t cap" x="4" y="310">2. Or press the right hand up into</text>
+    <text class="t cap" x="4" y="328">the left. Neither hand wins.</text>
   </g>
 </svg>

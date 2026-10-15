@@ -81,15 +81,22 @@ test('profile changes persist and merge', () => {
 test('check-ins merge within a day and old ones are pruned', () => {
   const ls = fakeStorage();
   const store = createStore(() => ls);
-  store.recordCheckin({ wrist: 'green' }, THU);
-  store.recordCheckin({ elbow: 'amber' }, THU);
-  assert.deepEqual(store.load(THU).checkins['2026-10-15'], { wrist: 'green', elbow: 'amber' });
-  assert.equal(Object.keys(store.load(new Date(2026, 10, 2)).checkins).length, 0); // 18 days later
+  store.recordCheckin({ wrist: 1 }, THU);
+  store.recordCheckin({ elbow: 3 }, THU);
+  assert.deepEqual(store.load(THU).checkins['2026-10-15'], { wrist: 1, elbow: 3 });
+  assert.equal(Object.keys(store.load(new Date(2026, 10, 15)).checkins).length, 0); // 31 days later
 });
 
-test('pruneCheckins keeps exactly the last 14 days', () => {
-  const c = { '2026-10-15': {}, '2026-10-02': {}, '2026-10-01': {}, '2026-10-16': {} };
-  assert.deepEqual(Object.keys(pruneCheckins(c, THU)).sort(), ['2026-10-02', '2026-10-15']);
+test('pruneCheckins keeps exactly the last 28 days', () => {
+  const c = { '2026-10-15': {}, '2026-09-18': {}, '2026-09-17': {}, '2026-10-16': {} };
+  assert.deepEqual(Object.keys(pruneCheckins(c, THU)).sort(), ['2026-09-18', '2026-10-15']);
+});
+
+test('a climb is remembered across days so tomorrow cannot be heavy', () => {
+  const ls = fakeStorage();
+  const store = createStore(() => ls);
+  store.recordClimb(THU);
+  assert.equal(store.load(new Date(2026, 9, 16)).lastClimbDay, '2026-10-15');
 });
 
 test('blocked storage falls back to memory and still works', () => {

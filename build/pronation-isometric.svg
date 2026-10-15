@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" width="720" height="400" role="img" aria-label="Pronation isometric at neutral, setup and press">
+  <style>
+    .bg{fill:#FAF7F2}
+    .lm{fill:#F2EDE4;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+    .im{fill:#DED3BF;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .oth{fill:#E2E7E3;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .torso{fill:#D6CDBB;stroke:#1F2421;stroke-width:2.2;stroke-linejoin:round}
+    .ct{fill:none;stroke:#1F2421;stroke-width:1.3;opacity:.4;stroke-linecap:round}
+    .acc{stroke:#C2543D;fill:none;stroke-width:3.2;stroke-linecap:round}
+    .lead{stroke:#C2543D;fill:none;stroke-width:1.4;opacity:.72}
+    .ghost{fill:none;stroke:#C2543D;stroke-width:2;stroke-dasharray:6 5;opacity:.8}
+    .wall{fill:#E8E1D4;stroke:#1F2421;stroke-width:2.2}
+    .t{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1F2421}
+    .h{font-size:22px;font-weight:700}
+    .sub{font-size:13.5px;fill:#6B6257}
+    .cap{font-size:13.5px}
+    .lab{font-size:11.5px;fill:#6B6257}
+    .accT{font-size:12.5px;font-weight:700;fill:#C2543D}
+    .dose{font-size:13px;fill:#4A443C}
+    .div{stroke:#E2D9CB;stroke-width:1.5}
+  </style>
+  <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#C2543D"/>
+  </marker>
+
+  <rect class="bg" x="0" y="0" width="720" height="400"/>
+  <text class="t h" x="22" y="32">Pronation isometric at neutral</text>
+  <text class="t sub" x="22" y="54">One exercise for both. The elbow's pronator and the small muscle that steadies the wrist joint.</text>
+  <line class="div" x1="362" y1="72" x2="362" y2="356"/>
+
+  <!-- PANEL 1 -->
+  <g>
+    <circle class="lm" cx="96" cy="108" r="24"/><path class="torso" d="M70,140 Q96,132 120,140 Q132,146 134,166 Q138,212 132,250 Q126,270 106,274 Q86,278 72,272 Q60,264 58,246 Q54,210 58,166 Q60,146 70,140 Z"/>
+    <path class="lm" d="M112,150 Q126,146 132,158 L136,222 Q134,236 120,236 Q106,236 104,222 L102,160 Q103,151 112,150 Z"/><path class="lm" d="M118,212 Q160,206 206,210 Q222,212 224,224 Q224,236 210,238 Q164,242 120,238 Q106,234 106,224 Q107,213 118,212 Z"/><path class="lm" d="M206,196 Q222,192 232,202 Q240,214 236,232 Q232,248 218,250 Q206,250 202,238 Q198,214 206,196 Z"/><path class="ct" d="M214,204 Q222,210 220,222"/>
+    <path class="lead" d="M150,286 L126,240"/>
+    <text class="t lab" x="152" y="300">elbow at your side, bent to 90</text>
+    <path class="lead" d="M268,190 L236,206"/>
+    <text class="t lab" x="272" y="188">thumb up,</text>
+    <text class="t lab" x="272" y="202">wrist straight</text>
+    <text class="t cap" x="22" y="326">1. Elbow tucked in, forearm out in</text>
+    <text class="t cap" x="22" y="344">front, thumb pointing at the ceiling.</text>
+  </g>
+
+  <!-- PANEL 2 -->
+  <g transform="translate(351,0)">
+    <circle class="lm" cx="96" cy="108" r="24"/><path class="torso" d="M70,140 Q96,132 120,140 Q132,146 134,166 Q138,212 132,250 Q126,270 106,274 Q86,278 72,272 Q60,264 58,246 Q54,210 58,166 Q60,146 70,140 Z"/>
+    <path class="lm" d="M112,150 Q126,146 132,158 L136,222 Q134,236 120,236 Q106,236 104,222 L102,160 Q103,151 112,150 Z"/><path class="lm" d="M118,212 Q160,206 206,210 Q222,212 224,224 Q224,236 210,238 Q164,242 120,238 Q106,234 106,224 Q107,213 118,212 Z"/><path class="lm" d="M206,196 Q222,192 232,202 Q240,214 236,232 Q232,248 218,250 Q206,250 202,238 Q198,214 206,196 Z"/><path class="ct" d="M214,204 Q222,210 220,222"/>
+    <path class="oth" d="M200,184 Q220,176 238,186 Q248,196 244,210 Q240,222 226,222 Q210,220 204,208 Q198,196 200,184 Z"/>
+    <path class="ct" d="M214,186 Q218,196 214,206"/><path class="ct" d="M226,186 Q230,196 226,206"/>
+    <path class="acc" d="M262,214 A40,40 0 0 1 246,262" marker-end="url(#ar)"/>
+    <text class="t accT" x="232" y="290" text-anchor="middle">turn palm down</text>
+    <text class="t lab" x="276" y="170">other hand</text>
+    <text class="t lab" x="276" y="184">holds it still</text>
+    <path class="lead" d="M272,178 L244,190"/>
+    <text class="t cap" x="31" y="326">2. Try to turn the palm down into the</text>
+    <text class="t cap" x="31" y="344">other hand. Neither hand wins.</text>
+  </g>
+  <text class="t dose" x="22" y="382">5 × 30 seconds at about half effort, every day. Wrist rule, 2 out of 10 at most.</text>
+</svg>

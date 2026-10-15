@@ -28,6 +28,10 @@ const CONFIG = {
   // panel 1's "elbow pinned to the ribs" label runs past the usual divider
   'shoulder-band-work.svg': { ...TWO_PANEL, panels: [[15, 392], [366, 712]] },
   'isometric-holds.svg': { ...TWO_PANEL, panels: [[15, 366], [366, 712]] },
+  'dart-throw.svg': { ...TWO_PANEL, panels: [[15, 366], [366, 712]] },
+  'pronation-isometric.svg': { ...TWO_PANEL, panels: [[15, 366], [366, 712]] },
+  'weight-bearing.svg': { ...TWO_PANEL, panels: [[15, 366], [366, 712]] },
+  'band-eccentric.svg': { ...TWO_PANEL, panels: [[15, 366], [366, 712]] },
 };
 
 const between = (src, open, close) => {

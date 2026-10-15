@@ -1,4 +1,12 @@
 {
+  "band-eccentric": [
+    "band-eccentric-1.svg",
+    "band-eccentric-2.svg"
+  ],
+  "dart-throw": [
+    "dart-throw-1.svg",
+    "dart-throw-2.svg"
+  ],
   "eccentric-wrist-flexion": [
     "eccentric-wrist-flexion-1.svg",
     "eccentric-wrist-flexion-2.svg"
@@ -10,6 +18,10 @@
   "isometric-holds": [
     "isometric-holds-1.svg",
     "isometric-holds-2.svg"
+  ],
+  "pronation-isometric": [
+    "pronation-isometric-1.svg",
+    "pronation-isometric-2.svg"
   ],
   "pronator-lever": [
     "pronator-lever-1.svg",
@@ -28,6 +40,10 @@
   "shoulder-band-work": [
     "shoulder-band-work-1.svg",
     "shoulder-band-work-2.svg"
+  ],
+  "weight-bearing": [
+    "weight-bearing-1.svg",
+    "weight-bearing-2.svg"
   ],
   "wrist-flexor-stretch": [
     "wrist-flexor-stretch-1.svg",
