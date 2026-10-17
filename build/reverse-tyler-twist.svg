@@ -129,11 +129,15 @@
     <g class="ghost" transform="rotate(-34 858 218)">
       <path d="M834,160 Q858,155 876,164 Q888,173 888,190 Q888,208 878,217 Q856,224 838,217 Q828,206 827,188 Q828,170 834,160 Z"/>
     </g>
+    <g>
+    <animateTransform attributeName="transform" type="rotate" values="-34 858 218;-34 858 218;0 858 218;0 858 218" keyTimes="0;.08;.72;1" dur="6.25s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="6.25s" repeatCount="indefinite"/>
     <path class="lm" d="M834,160 Q858,155 876,164 Q888,173 888,190 Q888,208 878,217 Q856,224 838,217 Q828,206 827,188 Q828,170 834,160 Z"/>
     <path class="lm" d="M836,166 Q832,190 836,212 Q841,219 847,212 Q851,190 847,166 Q841,159 836,166 Z"/>
     <path class="lm" d="M849,164 Q845,190 849,214 Q854,221 860,214 Q864,190 860,164 Q854,157 849,164 Z"/>
     <path class="lm" d="M862,164 Q858,190 862,214 Q867,221 873,214 Q877,190 873,164 Q867,157 862,164 Z"/>
     <path class="lm" d="M875,167 Q871,190 875,211 Q880,218 886,211 Q890,190 886,167 Q880,161 875,167 Z"/>
+    </g>
     <path class="acc" d="M828,144 A48,30 0 0 1 898,148" marker-end="url(#ar)"/>
     <text class="t accT" x="908" y="140">4 seconds</text>
     <text class="t accT" x="908" y="248">stop at straight</text>

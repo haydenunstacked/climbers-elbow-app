@@ -33,7 +33,7 @@
     <path class="lm" d="M146,138 Q156,132 172,136 Q184,142 182,156 Q180,186 174,206 Q168,218 154,218 Q142,216 140,204 Q136,176 140,150 Q141,141 146,138 Z"/>
     <path class="lm" d="M142,206 Q158,200 172,208 Q182,218 178,232 Q166,258 152,278 Q142,290 130,286 Q120,280 122,268 Q130,240 138,216 Q139,208 142,206 Z"/>
     <circle class="lm" cx="160" cy="210" r="16"/>
-    <path class="acc" d="M226,180 A46,46 0 0 0 226,244"/>
+    <path class="acc" d="M226,180 A46,46 0 0 0 226,244"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
     <text class="t accT" x="238" y="216">hold, do not move</text>
     <path class="lead" d="M108,214 L142,210"/>
     <text class="t lab" x="104" y="212" text-anchor="end">elbow bent</text>

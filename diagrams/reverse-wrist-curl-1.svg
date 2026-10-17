@@ -29,11 +29,15 @@
     <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
     <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
     <text class="t accT" x="52" y="172">palm down</text>
+    <g>
+    <animateTransform attributeName="transform" type="rotate" values="0 170 197;0 170 197;-88 170 197;-88 170 197" keyTimes="0;.1;.6;1" dur="3.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="3.5s" repeatCount="indefinite"/>
     <path class="lm" d="M168,206 Q164,222 176,230 Q188,238 197,228 Q207,238 215,227 Q224,234 229,221 Q233,207 227,194 Q217,177 196,175 Q176,176 169,190 Q164,199 168,206 Z"/>
     <path class="ct" d="M186,224 Q188,214 185,204"/><path class="ct" d="M204,224 Q206,214 203,204"/>
     <circle class="im" cx="236" cy="266" r="21"/>
     <circle class="det" cx="236" cy="266" r="8"/>
     <path class="im" d="M208,234 L224,244 L217,256 L201,246 Z"/>
+    </g>
     <text class="t lab" x="120" y="304" text-anchor="middle">bottom, wrist dropped</text>
     <path class="acc" d="M304,246 L304,182" marker-end="url(#ar)"/>
     <text class="t accT" x="304" y="170" text-anchor="middle">curl up</text>

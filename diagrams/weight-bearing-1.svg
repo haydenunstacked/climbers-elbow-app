@@ -32,6 +32,7 @@
     <path class="lm" d="M146,148 Q200,146 256,160 Q272,166 270,178 Q266,190 252,188 Q198,178 146,174 Q136,170 136,160 Q137,149 146,148 Z"/>
     <path class="lm" d="M262,152 Q278,146 286,152 L286,196 Q278,202 266,198 Q256,192 256,176 Q256,160 262,152 Z"/>
     <path class="lead" d="M232,226 L268,196"/>
+    <path class="acc" d="M196,130 L244,140" marker-end="url(#ar)"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
     <text class="t lab" x="180" y="238">palm flat, wrist short</text>
     <text class="t lab" x="180" y="252">of full extension</text>
     <text class="t accT" x="166" y="104">3 × 30 seconds, phase 3</text>

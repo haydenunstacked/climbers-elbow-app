@@ -27,9 +27,11 @@
     <circle class="lm" cx="196" cy="114" r="27"/>
     <path class="torso" d="M152,152 Q196,142 240,152 Q256,158 258,178 Q262,220 256,252 Q250,270 228,274 Q196,280 164,274 Q142,270 137,252 Q131,220 135,178 Q137,158 152,152 Z"/>
     <path class="lm" d="M250,158 Q266,156 272,168 Q276,190 274,214 Q272,228 258,230 Q244,230 241,216 Q238,190 240,168 Q242,159 250,158 Z"/>
+    <g transform="translate(240,0)"><g><animateTransform attributeName="transform" type="scale" values="1 1;1 1;-0.45 1;-0.45 1;1 1;1 1" keyTimes="0;.12;.47;.6;.95;1" dur="4s" repeatCount="indefinite"/><g transform="translate(-240,0)">
     <path class="lm" d="M244,214 Q246,230 232,236 Q206,242 178,238 Q166,234 166,222 Q166,210 178,207 Q206,202 232,206 Q242,206 244,214 Z"/>
     <path class="lm" d="M172,206 Q152,202 138,210 Q126,220 132,232 Q140,242 158,240 Q172,236 178,226 Z"/>
-    <path class="band" d="M132,224 L118,212 L104,236 L90,212 L76,236 L62,224"/>
+    </g></g></g>
+    <path class="band" d="M132,224 L118,212 L104,236 L90,212 L76,236 L62,224"><animate attributeName="d" values="M132,224 L118,212 L104,236 L90,212 L76,236 L62,224;M132,224 L118,212 L104,236 L90,212 L76,236 L62,224;M289,224 L244,228 L198,220 L153,228 L107,220 L62,224;M289,224 L244,228 L198,220 L153,228 L107,220 L62,224;M132,224 L118,212 L104,236 L90,212 L76,236 L62,224;M132,224 L118,212 L104,236 L90,212 L76,236 L62,224" keyTimes="0;.12;.47;.6;.95;1" dur="4s" repeatCount="indefinite"/></path>
     <rect class="im" x="44" y="204" width="15" height="42" rx="5"/>
     <text class="t lab" x="51" y="262" text-anchor="middle">anchor</text>
     <path class="acc" d="M158,288 A82,82 0 0 0 264,266" marker-end="url(#ar)"/>

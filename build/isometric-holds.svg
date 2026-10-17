@@ -39,7 +39,7 @@
     <path class="lm" d="M146,138 Q156,132 172,136 Q184,142 182,156 Q180,186 174,206 Q168,218 154,218 Q142,216 140,204 Q136,176 140,150 Q141,141 146,138 Z"/>
     <path class="lm" d="M142,206 Q158,200 172,208 Q182,218 178,232 Q166,258 152,278 Q142,290 130,286 Q120,280 122,268 Q130,240 138,216 Q139,208 142,206 Z"/>
     <circle class="lm" cx="160" cy="210" r="16"/>
-    <path class="acc" d="M226,180 A46,46 0 0 0 226,244"/>
+    <path class="acc" d="M226,180 A46,46 0 0 0 226,244"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
     <text class="t accT" x="238" y="216">hold, do not move</text>
     <path class="lead" d="M108,214 L142,210"/>
     <text class="t lab" x="104" y="212" text-anchor="end">elbow bent</text>
@@ -60,8 +60,8 @@
     <path class="oth" d="M166,150 Q162,136 174,129 Q186,122 195,131 Q205,122 213,132 Q222,126 227,138 Q231,151 225,162 Q214,176 194,177 Q175,176 168,164 Q163,157 166,150 Z"/>
     <path class="ct" d="M184,134 Q186,144 183,153"/><path class="ct" d="M202,134 Q204,144 201,153"/>
     <text class="t lab" x="168" y="130" text-anchor="end">left hand presses down</text>
-    <path class="acc" d="M252,140 L252,166" marker-end="url(#ar)"/>
-    <path class="acc" d="M252,214 L252,188" marker-end="url(#ar)"/>
+    <path class="acc" d="M252,140 L252,166" marker-end="url(#ar)"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
+    <path class="acc" d="M252,214 L252,188" marker-end="url(#ar)"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
     <text class="t lab" x="328" y="248" text-anchor="end">right hand presses up</text>
     <text class="t accT" x="4" y="284">45 seconds at about 70 percent, 5 reps</text>
     <text class="t cap" x="4" y="310">2. Or press the right hand up into</text>

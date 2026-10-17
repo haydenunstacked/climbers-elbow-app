@@ -27,11 +27,11 @@
     <path class="lm" d="M156,238 Q132,228 116,236 Q102,246 108,259 Q116,270 134,267 Q150,263 160,252 Z"/>
     <path class="lm" d="M158,208 Q162,196 180,193 Q208,190 228,197 Q243,204 245,220 Q246,250 238,268 Q229,283 206,285 Q180,286 166,275 Q155,263 154,242 Q153,220 158,208 Z"/>
     <path class="ct" d="M162,244 Q158,228 166,214"/>
-    <g transform="rotate(-20 174 204)"><path class="lm" d="M164,204 L164,158 Q163,148 171,145 Q180,143 184,150 Q186,160 185,170 L185,204 Z"/></g>
-    <g transform="rotate(-7 199 202)"><path class="lm" d="M188,202 L188,150 Q187,139 196,136 Q205,134 209,141 Q211,152 210,162 L210,202 Z"/></g>
-    <g transform="rotate(7 224 203)"><path class="lm" d="M213,203 L213,154 Q212,143 221,140 Q230,138 234,146 Q236,156 235,166 L235,203 Z"/></g>
-    <g transform="rotate(20 248 208)"><path class="lm" d="M238,208 L238,166 Q237,156 245,153 Q253,151 257,159 Q259,168 258,177 L258,208 Z"/></g>
-    <ellipse class="band" cx="209" cy="150" rx="76" ry="11" style="stroke-width:3.4"/>
+    <g transform="rotate(-20 174 204)"><animateTransform attributeName="transform" type="rotate" values="0 174 204;0 174 204;-20 174 204;-20 174 204;0 174 204" keyTimes="0;.1;.5;.6;1" dur="5s" repeatCount="indefinite"/><path class="lm" d="M164,204 L164,158 Q163,148 171,145 Q180,143 184,150 Q186,160 185,170 L185,204 Z"/></g>
+    <g transform="rotate(-7 199 202)"><animateTransform attributeName="transform" type="rotate" values="0 199 202;0 199 202;-7 199 202;-7 199 202;0 199 202" keyTimes="0;.1;.5;.6;1" dur="5s" repeatCount="indefinite"/><path class="lm" d="M188,202 L188,150 Q187,139 196,136 Q205,134 209,141 Q211,152 210,162 L210,202 Z"/></g>
+    <g transform="rotate(7 224 203)"><animateTransform attributeName="transform" type="rotate" values="0 224 203;0 224 203;7 224 203;7 224 203;0 224 203" keyTimes="0;.1;.5;.6;1" dur="5s" repeatCount="indefinite"/><path class="lm" d="M213,203 L213,154 Q212,143 221,140 Q230,138 234,146 Q236,156 235,166 L235,203 Z"/></g>
+    <g transform="rotate(20 248 208)"><animateTransform attributeName="transform" type="rotate" values="0 248 208;0 248 208;20 248 208;20 248 208;0 248 208" keyTimes="0;.1;.5;.6;1" dur="5s" repeatCount="indefinite"/><path class="lm" d="M238,208 L238,166 Q237,156 245,153 Q253,151 257,159 Q259,168 258,177 L258,208 Z"/></g>
+    <ellipse class="band" cx="209" cy="150" rx="76" ry="11" style="stroke-width:3.4"><animate attributeName="rx" values="52;52;76;76;52" keyTimes="0;.1;.5;.6;1" dur="5s" repeatCount="indefinite"/><animate attributeName="ry" values="13;13;11;11;13" keyTimes="0;.1;.5;.6;1" dur="5s" repeatCount="indefinite"/><animate attributeName="cy" values="156;156;150;150;156" keyTimes="0;.1;.5;.6;1" dur="5s" repeatCount="indefinite"/></ellipse>
     <path class="acc" d="M124,140 L98,128" marker-end="url(#ar)"/>
     <path class="acc" d="M294,140 L320,128" marker-end="url(#ar)"/>
     <text class="t accT" x="209" y="114" text-anchor="middle">open slowly</text>

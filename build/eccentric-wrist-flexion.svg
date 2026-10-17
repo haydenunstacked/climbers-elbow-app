@@ -35,14 +35,23 @@
     <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
     <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
     <text class="t lab" x="52" y="172">palm up</text>
+    <g>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.88;1" dur="3s" repeatCount="indefinite"/>
+    <g>
+    <animateTransform attributeName="transform" type="rotate" values="35 170 197;35 170 197;0 170 197;0 170 197" keyTimes="0;.12;.5;1" dur="3s" repeatCount="indefinite"/>
     <path class="lm" d="M168,190 Q164,174 176,166 Q188,158 197,168 Q207,158 215,169 Q224,162 229,175 Q233,189 227,202 Q217,219 196,221 Q176,220 169,206 Q164,197 168,190 Z"/>
     <path class="ct" d="M186,172 Q188,182 185,192"/><path class="ct" d="M204,172 Q206,182 203,192"/>
     <path class="im" d="M206,152 L222,142 L229,154 L213,164 Z"/>
     <circle class="im" cx="248" cy="132" r="21"/>
     <circle class="det" cx="248" cy="132" r="8"/>
+    </g>
+    <g>
+    <animateTransform attributeName="transform" type="translate" values="23 56;23 56;0 0;0 0" keyTimes="0;.12;.5;1" dur="3s" repeatCount="indefinite"/>
     <path class="oth" d="M238,208 Q232,194 244,186 Q256,178 265,188 Q275,178 283,189 Q292,183 296,196 Q299,210 292,220 Q281,232 262,232 Q244,230 239,218 Q235,212 238,208 Z"/>
     <path class="ct" d="M256,192 Q258,202 255,211"/><path class="ct" d="M274,192 Q276,202 273,211"/>
     <text class="t lab" x="268" y="250" text-anchor="middle">left hand</text>
+    </g>
+    </g>
     <path class="acc" d="M320,206 L320,146" marker-end="url(#ar)"/>
     <text class="t accT" x="320" y="134" text-anchor="middle">assist up</text>
     <text class="t cap" x="22" y="326">1. Palm up on the thigh. Left hand</text>
@@ -54,11 +63,15 @@
     <path class="im" d="M26,226 Q94,217 148,223 Q172,226 180,242 Q182,258 166,266 Q98,274 32,269 Q17,264 16,248 Q16,232 26,226 Z"/>
     <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
     <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
+    <g>
+    <animateTransform attributeName="transform" type="rotate" values="-60 170 197;-60 170 197;0 170 197;0 170 197" keyTimes="0;.08;.72;1" dur="6.25s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="6.25s" repeatCount="indefinite"/>
     <path class="lm" d="M168,204 Q164,220 176,228 Q188,236 197,226 Q207,236 215,225 Q224,232 229,219 Q233,205 227,192 Q217,175 196,173 Q176,174 169,188 Q164,197 168,204 Z"/>
     <path class="ct" d="M186,222 Q188,212 185,202"/><path class="ct" d="M204,222 Q206,212 203,202"/>
     <circle class="im" cx="238" cy="264" r="21"/>
     <circle class="det" cx="238" cy="264" r="8"/>
     <path class="im" d="M210,232 L226,242 L219,254 L203,244 Z"/>
+    </g>
     <text class="t lab" x="150" y="304" text-anchor="middle">wrist lowers into extension</text>
     <path class="acc" d="M300,158 L300,232" marker-end="url(#ar)"/>
     <text class="t accT" x="300" y="146" text-anchor="middle">4 seconds</text>

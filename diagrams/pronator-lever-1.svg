@@ -31,12 +31,16 @@
     <text class="t lab" x="52" y="172">palm up</text>
     <path class="lm" d="M172,180 Q192,174 206,184 Q216,196 212,210 Q204,222 190,222 Q176,219 170,208 Q167,192 172,180 Z"/>
     <path class="lm" d="M174,184 Q190,178 202,184 Q208,192 200,198 Q186,202 174,196 Z"/>
+    <g>
+    <animateTransform attributeName="transform" type="rotate" values="0 195 202;0 195 202;-130 195 202;-130 195 202" keyTimes="0;.12;.55;1" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.88;1" dur="3s" repeatCount="indefinite"/>
     <g transform="rotate(40 208 202)">
       <rect class="im" x="208" y="195" width="80" height="14" rx="7"/>
       <rect class="hd" x="280" y="182" width="26" height="40" rx="5"/>
     </g>
+    </g>
     <path class="acc" d="M282,254 A78,78 0 0 0 250,152" marker-end="url(#ar)"/>
-    <text class="t accT" x="292" y="144" text-anchor="middle">rotate up</text>
+    <text class="t accT" x="40" y="132">rotate up</text>
     <text class="t lab" x="196" y="304">head hangs to the thumb side</text>
     <text class="t cap" x="22" y="326">1. Start palm up with the hammer</text>
     <text class="t cap" x="22" y="344">head hanging out to the side.</text>

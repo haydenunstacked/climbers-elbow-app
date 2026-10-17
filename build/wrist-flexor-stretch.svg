@@ -43,7 +43,7 @@
     <circle class="lm" cx="206" cy="212" r="10"/>
     <path class="oth" d="M152,124 Q148,110 160,104 Q172,97 181,106 Q191,97 199,107 Q208,101 213,113 Q217,126 211,137 Q200,150 180,151 Q161,150 154,138 Q149,131 152,124 Z"/>
     <path class="ct" d="M170,109 Q172,120 169,131"/><path class="ct" d="M188,109 Q190,120 187,131"/>
-    <path class="acc" d="M244,110 L206,94" marker-end="url(#ar)"/>
+    <path class="acc" d="M244,110 L206,94" marker-end="url(#ar)"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
     <text class="t accT" x="250" y="108">pull gently</text>
     <path class="lead" d="M248,210 L220,210"/>
     <text class="t lab" x="254" y="214">thumb</text>
@@ -67,7 +67,7 @@
     <circle class="lm" cx="168" cy="176" r="10"/>
     <path class="oth" d="M152,124 Q148,110 160,104 Q172,97 181,106 Q191,97 199,107 Q208,101 213,113 Q217,126 211,137 Q200,150 180,151 Q161,150 154,138 Q149,131 152,124 Z"/>
     <path class="ct" d="M170,109 Q172,120 169,131"/><path class="ct" d="M188,109 Q190,120 187,131"/>
-    <path class="acc" d="M244,110 L206,94" marker-end="url(#ar)"/>
+    <path class="acc" d="M244,110 L206,94" marker-end="url(#ar)"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
     <text class="t accT" x="250" y="108">pull gently</text>
     <path class="lead" d="M132,170 L156,174"/>
     <text class="t lab" x="128" y="168" text-anchor="end">thumb</text>

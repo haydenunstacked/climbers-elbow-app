@@ -35,11 +35,15 @@
     <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
     <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
     <text class="t accT" x="52" y="172">palm down</text>
+    <g>
+    <animateTransform attributeName="transform" type="rotate" values="0 170 197;0 170 197;-88 170 197;-88 170 197" keyTimes="0;.1;.6;1" dur="3.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="3.5s" repeatCount="indefinite"/>
     <path class="lm" d="M168,206 Q164,222 176,230 Q188,238 197,228 Q207,238 215,227 Q224,234 229,221 Q233,207 227,194 Q217,177 196,175 Q176,176 169,190 Q164,199 168,206 Z"/>
     <path class="ct" d="M186,224 Q188,214 185,204"/><path class="ct" d="M204,224 Q206,214 203,204"/>
     <circle class="im" cx="236" cy="266" r="21"/>
     <circle class="det" cx="236" cy="266" r="8"/>
     <path class="im" d="M208,234 L224,244 L217,256 L201,246 Z"/>
+    </g>
     <text class="t lab" x="120" y="304" text-anchor="middle">bottom, wrist dropped</text>
     <path class="acc" d="M304,246 L304,182" marker-end="url(#ar)"/>
     <text class="t accT" x="304" y="170" text-anchor="middle">curl up</text>
@@ -52,14 +56,17 @@
     <path class="im" d="M26,226 Q94,217 148,223 Q172,226 180,242 Q182,258 166,266 Q98,274 32,269 Q17,264 16,248 Q16,232 26,226 Z"/>
     <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
     <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
+    <g>
+    <animateTransform attributeName="transform" type="rotate" values="88 170 197;88 170 197;0 170 197;0 170 197;88 170 197;88 170 197" keyTimes="0;.08;.4;.48;.92;1" dur="6.5s" repeatCount="indefinite"/>
     <path class="lm" d="M168,186 Q164,170 176,162 Q188,154 197,164 Q207,154 215,165 Q224,158 229,171 Q233,185 227,198 Q217,215 196,217 Q176,216 169,202 Q164,193 168,186 Z"/>
     <path class="ct" d="M186,168 Q188,178 185,188"/><path class="ct" d="M204,168 Q206,178 203,188"/>
     <circle class="im" cx="242" cy="132" r="21"/>
     <circle class="det" cx="242" cy="132" r="8"/>
     <path class="im" d="M208,158 L224,148 L231,160 L215,170 Z"/>
+    </g>
     <text class="t lab" x="120" y="304" text-anchor="middle">top, knuckles lifted</text>
-    <path class="acc" d="M306,166 L306,238" marker-end="url(#ar)"/>
-    <text class="t accT" x="306" y="262" text-anchor="middle">lower slowly</text>
+    <path class="acc" d="M320,166 L320,238" marker-end="url(#ar)"/>
+    <text class="t accT" x="320" y="262" text-anchor="middle">lower slowly</text>
     <text class="t cap" x="31" y="326">2. Curl the knuckles up, then lower</text>
     <text class="t cap" x="31" y="344">back down under control.</text>
   </g>

@@ -28,11 +28,15 @@
     <path class="im" d="M26,226 Q94,217 148,223 Q172,226 180,242 Q182,258 166,266 Q98,274 32,269 Q17,264 16,248 Q16,232 26,226 Z"/>
     <text class="t lab" x="98" y="252" text-anchor="middle">thigh</text>
     <path class="lm" d="M48,180 Q100,173 142,181 Q162,185 172,193 L172,211 Q157,217 138,216 Q96,218 50,211 Q37,206 36,196 Q36,185 48,180 Z"/>
+    <g>
+    <animateTransform attributeName="transform" type="rotate" values="-60 170 197;-60 170 197;0 170 197;0 170 197" keyTimes="0;.08;.72;1" dur="6.25s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="6.25s" repeatCount="indefinite"/>
     <path class="lm" d="M168,204 Q164,220 176,228 Q188,236 197,226 Q207,236 215,225 Q224,232 229,219 Q233,205 227,192 Q217,175 196,173 Q176,174 169,188 Q164,197 168,204 Z"/>
     <path class="ct" d="M186,222 Q188,212 185,202"/><path class="ct" d="M204,222 Q206,212 203,202"/>
     <circle class="im" cx="238" cy="264" r="21"/>
     <circle class="det" cx="238" cy="264" r="8"/>
     <path class="im" d="M210,232 L226,242 L219,254 L203,244 Z"/>
+    </g>
     <text class="t lab" x="150" y="304" text-anchor="middle">wrist lowers into extension</text>
     <path class="acc" d="M300,158 L300,232" marker-end="url(#ar)"/>
     <text class="t accT" x="300" y="146" text-anchor="middle">4 seconds</text>

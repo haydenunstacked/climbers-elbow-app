@@ -56,6 +56,8 @@ The vault note has eight landscape diagrams drawn for a laptop. `build/split-pan
 
 Regenerate with `npm run diagrams` after editing anything in `build/*.svg`. The source diagrams there are copies. The originals live in the vault.
 
+The panels are animated with SMIL inside the SVG, because that is what still runs when an SVG is shown through `<img>`, offline and in the bundle. Reps move at the pace of the dose, and the lowering in a tempo exercise takes exactly as long as its timer. Holds keep still and pulse their pressure arrows. Setup steps do not move. `test/animation.test.js` checks the markup, since a broken SMIL animation does not error, it just stops.
+
 ## The cache version matters
 
 `sw.js` caches everything so the app works offline in a gym with no signal. The cache name includes a hash of every precached file, stamped by `build/stamp-version.mjs`.

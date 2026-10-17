@@ -3,7 +3,7 @@
 // PRECACHE is checked against the filesystem by test/precache.test.js, so adding
 // a file without listing it here fails the build.
 
-const VERSION = '24ab07beed';
+const VERSION = '32537bf524';
 const CACHE = `climbers-elbow-${VERSION}`;
 
 const PRECACHE = [

@@ -33,8 +33,8 @@
     <path class="oth" d="M166,150 Q162,136 174,129 Q186,122 195,131 Q205,122 213,132 Q222,126 227,138 Q231,151 225,162 Q214,176 194,177 Q175,176 168,164 Q163,157 166,150 Z"/>
     <path class="ct" d="M184,134 Q186,144 183,153"/><path class="ct" d="M202,134 Q204,144 201,153"/>
     <text class="t lab" x="168" y="130" text-anchor="end">left hand presses down</text>
-    <path class="acc" d="M252,140 L252,166" marker-end="url(#ar)"/>
-    <path class="acc" d="M252,214 L252,188" marker-end="url(#ar)"/>
+    <path class="acc" d="M252,140 L252,166" marker-end="url(#ar)"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
+    <path class="acc" d="M252,214 L252,188" marker-end="url(#ar)"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
     <text class="t lab" x="328" y="248" text-anchor="end">right hand presses up</text>
     <text class="t accT" x="4" y="284">45 seconds at about 70 percent, 5 reps</text>
     <text class="t cap" x="4" y="310">2. Or press the right hand up into</text>

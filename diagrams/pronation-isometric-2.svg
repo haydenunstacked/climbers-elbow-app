@@ -28,7 +28,7 @@
     <path class="lm" d="M112,150 Q126,146 132,158 L136,222 Q134,236 120,236 Q106,236 104,222 L102,160 Q103,151 112,150 Z"/><path class="lm" d="M118,212 Q160,206 206,210 Q222,212 224,224 Q224,236 210,238 Q164,242 120,238 Q106,234 106,224 Q107,213 118,212 Z"/><path class="lm" d="M206,196 Q222,192 232,202 Q240,214 236,232 Q232,248 218,250 Q206,250 202,238 Q198,214 206,196 Z"/><path class="ct" d="M214,204 Q222,210 220,222"/>
     <path class="oth" d="M200,184 Q220,176 238,186 Q248,196 244,210 Q240,222 226,222 Q210,220 204,208 Q198,196 200,184 Z"/>
     <path class="ct" d="M214,186 Q218,196 214,206"/><path class="ct" d="M226,186 Q230,196 226,206"/>
-    <path class="acc" d="M262,214 A40,40 0 0 1 246,262" marker-end="url(#ar)"/>
+    <path class="acc" d="M262,214 A40,40 0 0 1 246,262" marker-end="url(#ar)"><animate attributeName="opacity" values="1;.25;1" keyTimes="0;.5;1" dur="2s" repeatCount="indefinite"/></path>
     <text class="t accT" x="232" y="290" text-anchor="middle">turn palm down</text>
     <text class="t lab" x="276" y="170">other hand</text>
     <text class="t lab" x="276" y="184">holds it still</text>
