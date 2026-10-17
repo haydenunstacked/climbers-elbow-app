@@ -57,7 +57,14 @@ function beep(freq = 660, ms = 110) {
 
 let session = null; // { plan, index, setsDone: {id: n} }
 
+// A new version that has taken over this page waits here until it is safe to
+// reload, which is only from the Today screen. Everything on Today is already
+// saved, and leaving a session for Today already drops it.
+let updateReady = false;
+let onToday = false;
+
 function show(node) {
+  onToday = false;
   root.replaceChildren(node);
   root.scrollTop = 0;
 }
@@ -80,6 +87,7 @@ function planInputs(now = new Date()) {
 }
 
 function screenToday() {
+  if (updateReady) return location.reload();
   const now = new Date();
   const inp = planInputs(now);
   const { state, profile } = inp;
@@ -185,6 +193,7 @@ function screenToday() {
   });
 
   show(node);
+  onToday = true;
 }
 
 // ---------------------------------------------------------------- safety screen
@@ -727,8 +736,23 @@ screenToday();
 // The single-file bundle has no sw.js to register, and its assets are already
 // inline, so there is nothing to precache.
 if (!window.__BUNDLED__ && 'serviceWorker' in navigator) {
+  // No controller means this is the first install, which has nothing to replace.
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || updateReady) return;
+    updateReady = true;
+    if (onToday) location.reload();
+  });
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => { /* offline is a bonus, not a requirement */ });
+    navigator.serviceWorker.register('sw.js')
+      .then((reg) => {
+        // A home screen app comes back from the background without loading the
+        // page, so the browser never looks for a new version unless asked.
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') reg.update().catch(() => {});
+        });
+      })
+      .catch(() => { /* offline is a bonus, not a requirement */ });
   });
 }
 
